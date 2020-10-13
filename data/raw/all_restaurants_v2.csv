@@ -1,0 +1,179 @@
+,Restaurant,User-Rating,No-Ratings,Address,Feature1,Feature2,Feature3,Feature4,Feature5,City
+0, Don Pepe - Kálmán Imre utca,4.6,2009,Kálmán Imre 23,Olasz,Nemzetközi,Magyaros,Hamburger,Vegán,Budapest
+1, Pizza Hut Arany János,4.4,250,Arany János utca 31,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,,Budapest
+2, Boulevard Kitchen,4.4,5,Erzsébet körút 12,Pizza,NetPincér GO,SZÉP kártyás fizetés,Érintkezésmentes kiszállítás,,Budapest
+3, 15 Perc Pizza Expressz,4,389,Dessewffy utca 5,Olasz,Pizza,Készpénzes fizetés,,,Budapest
+4, Il Terzo Cerchio Étterem Pizzéria,4.3,359,Dohány u. 40,Olasz,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,Budapest
+5, 50minutes,4.6,398,Fő utca 51,Olasz,Magyaros,Hamburger,Pizza,Algida,Budapest
+6, Pizza Monkey Budapest,4.3,197,Kármán utca 3,Magyaros,Hamburger,Saláta,Vegán,Grill,Budapest
+7, Ponte Pizza and Restaurant,4.7,1195,Nefelejcs utca 14,Magyaros,Olasz,Pizza,Algida,Készpénzes fizetés,Budapest
+8, Trófea Grill Étterem,4.6,899,Király utca 30,Pizza,Olasz,Magyaros,Hamburger,Amerikai,Budapest
+9, Vapiano Belváros,4.2,228,Vörösmarty tér 3,Olasz,Pizza,Saláta,Tészta,NetPincér GO,Budapest
+10, Attaboy! Burger and Pizza,4.7,979,Síp utca 4,Pizza,Olasz,Amerikai,Hamburger,Készpénzes fizetés,Budapest
+11, Etna Házhozszállítás,4.7,226,Kertész utca 48,Olasz,Pizza,Ételérzékenyeknek is,Készpénzes fizetés,,Budapest
+12, Bellozzo - Oktogon,4.7,501,Oktogon 1,Pizza,Tészta,Olasz,NetPincér GO,SZÉP kártyás fizetés,Budapest
+13, All About Street Food,4.7,244,Múzeum utca 7,Pizza,Szendvics,Amerikai,Hamburger,Algida,Budapest
+14, Pizza King Belváros,3.9,1480,István utca 26,Olasz,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,Budapest
+15, Il Treno - Trombitás,4.5,382,Retek utca 12,Pizza,Olasz,Készpénzes fizetés,,,Budapest
+16, La Cipolla - Tradicionális olasz konyha,4.7,1438,Rózsafa utca 13,Olasz,Pizza,Algida,Készpénzes fizetés,SZÉP kártyás fizetés,Budapest
+17, Donna Mamma Pizza Napoletana,4.6,286,Rákóczi út 1-3,Pizza,NetPincér GO,SZÉP kártyás fizetés,Érintkezésmentes kiszállítás,,Budapest
+18, Don Corleone Pizzéria,4.7,409,Nefelejcs u. 27,Olasz,Nemzetközi,Pizza,Algida,Készpénzes fizetés,Budapest
+19, Mercetti - az olasz konyha szerelmese,4.8,347,Erkel utca 9,Pizza,Vegetariánus,Saláta,Tészta,Olasz,Budapest
+20, Kupak Bar & Bistro,4.2,57,Dob utca 2,Pizza,Nemzetközi,Magyaros,NetPincér GO,SZÉP kártyás fizetés,Budapest
+21, Trófea Grill Étterem Zugló,4.8,1877,Erzsébet királyné útja 5-7.,Olasz,Magyaros,Sushi,Hamburger,Amerikai,Budapest
+22, Da Mario Budapest,,,Vécsey utca 3,Pizza,Tészta,Olasz,NetPincér GO,SZÉP kártyás fizetés,Budapest
+23, Pizza EATaliano - Pest,4.3,41,Vécsey u. 5,Olasz,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,Budapest
+24, Pasta Culture Tésztabár,4.5,44,Október 6. utca 19,Pizza,Tészta,Olasz,NetPincér GO,SZÉP kártyás fizetés,Budapest
+25, Grand Re Pizza Hungary,4.7,119,Akácfa utca 65.,Pizza,NetPincér GO,SZÉP kártyás fizetés,Érintkezésmentes kiszállítás,,Budapest
+26, Első Pesti Rétesház Étterem Expressz,4.8,29,Október 6. utca 22,Cukrászda,Grill,Magyaros,Pizza,NetPincér GO,Budapest
+27, Trabant Retro Bisztró Expressz,4.7,15,Október 6. utca 22,Grill,Magyaros,Pizza,NetPincér GO,SZÉP kártyás fizetés,Budapest
+28, BITE Bakery Café - Oktogon,4.9,24,Oktogon 4,Pizza,Reggelizőhely,Pékség,NetPincér GO,SZÉP kártyás fizetés,Budapest
+29, Pizza Me Dohány utca,4.5,21,Erzsébet körút 14,Olasz,Pizza,NetPincér GO,Érintkezésmentes kiszállítás,,Budapest
+30, Trattoria Za-Za,4.3,109,Ráday utca 16,Olasz,Magyaros,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,Budapest
+31, Okay Italia Szent István krt. Expressz,4.5,82,Szent István körút 20,Pizza,Tészta,Olasz,NetPincér GO,SZÉP kártyás fizetés,Budapest
+32, Ibolya Pizza,4.3,24,Ferenciek tere 5,Magyaros,Pizza,NetPincér GO,SZÉP kártyás fizetés,Érintkezésmentes kiszállítás,Budapest
+33, Nemo Fish & Chips & Salad Házhozszállítás,4.5,150,Török utca 8,Nemzetközi,Magyaros,Vegetariánus,Halétel,Pizza,Budapest
+34, Allstar Pizza,4.5,130,Károly krt. 5,Olasz,Török,Görög,Pizza,Készpénzes fizetés,Budapest
+35, Den Haag Pizzéria,4.8,51,Dohány utca 5,Pizza,Algida,NetPincér GO,SZÉP kártyás fizetés,Érintkezésmentes kiszállítás,Budapest
+36, Il Classico Nyugati tér,2.6,5,Nyugati tér 6,Olasz,Pizza,NetPincér GO,SZÉP kártyás fizetés,Érintkezésmentes kiszállítás,Budapest
+37, Trattoria La Coppola,4.5,43,Károlyi utca 19,Pizza,Olasz,NetPincér GO,SZÉP kártyás fizetés,Érintkezésmentes kiszállítás,Budapest
+38, Európa Pizzéria,,,Váci utca 45,Pizza,NetPincér GO,SZÉP kártyás fizetés,Érintkezésmentes kiszállítás,,Budapest
+39, Pizzeria Di Carlo,5,1,Teréz körút 37 fszt. 9.,Pizza,NetPincér GO,SZÉP kártyás fizetés,Érintkezésmentes kiszállítás,,Budapest
+40, Rokfort Étterem,5,2,Szalay utca 3,Magyaros,Pizza,NetPincér GO,SZÉP kártyás fizetés,Érintkezésmentes kiszállítás,Budapest
+41, Bonnie Restro Comics,5,26,Ferenciek tere 5,Nemzetközi,Pizza,NetPincér GO,SZÉP kártyás fizetés,Érintkezésmentes kiszállítás,Budapest
+42, Ape Regina Restaurant,4.1,7,Podmaniczky utca 18,Olasz,Tészta,Pizza,NetPincér GO,SZÉP kártyás fizetés,Budapest
+43, Dolce Vita Pizza,4.9,44,Erkel utca 9,Olasz,Pizza,Algida,Készpénzes fizetés,,Budapest
+44, Moody Pizza,4,26,Duna utca 3,Magyaros,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,Budapest
+45, Ciao Italia,3.7,11,Erzsébet körút 50,Olasz,Tészta,Pizza,NetPincér GO,SZÉP kártyás fizetés,Budapest
+46, Clooney Étterem és Pizza,2.8,5,Nyugati tér 6,Magyaros,Hamburger,Pizza,NetPincér GO,SZÉP kártyás fizetés,Budapest
+47, Trattoria Pizzeria Monza,4.1,7,Krúdy Gyula utca 2,Tészta,Pizza,NetPincér GO,SZÉP kártyás fizetés,Érintkezésmentes kiszállítás,Budapest
+48, Princess Bakery & Bistro,3.6,3,Kossuth Lajos tér 1,Pékség,Pizza,NetPincér GO,Érintkezésmentes kiszállítás,,Budapest
+49," ""PizzaLabor - ha másra vágysz""",4.9,93,Erkel utca 9,Pizza,Algida,Készpénzes fizetés,SZÉP kártyás fizetés,,Budapest
+50, Patkó Bandi Étterem-Söröző,4.6,12,Váci út 12,Magyaros,Hamburger,Pizza,NetPincér GO,SZÉP kártyás fizetés,Budapest
+51, Da Giovanni Pizzéria - 7. kerület,4.3,12,Dohány utca 88,Olasz,Pizza,Algida,Készpénzes fizetés,SZÉP kártyás fizetés,Budapest
+52, Vidocq Étterem,4,130,Lajos utca 98,Olasz,Magyaros,Pizza,Készpénzes fizetés,,Budapest
+53, DonMash Pizza,4.1,66,Váci utca 41,Cukrászda,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,Budapest
+54, Enrico from Sicily,3.9,35,Váci utca 41,Pizza,Olasz,Készpénzes fizetés,SZÉP kártyás fizetés,,Budapest
+55, Pizza Hungarica,3.7,25,Duna utca 3,Reggelizőhely,Cukrászda,Pizza,Reggelizőhely,Készpénzes fizetés,Budapest
+56, Facebistro,5,4,Hollán Ernő utca 13-15.,Olasz,Magyaros,Pizza,NetPincér GO,SZÉP kártyás fizetés,Budapest
+57, Baker's Pizza,4.4,355,Etele tér Gyalogos Aluljáró 128/11,Pizza,Algida,Készpénzes fizetés,SZÉP kártyás fizetés,,Budapest
+58, Roadside Burgers & Pizza (Halal),4.6,24,József krt. 23,Pizza,Török,Hamburger,NetPincér GO,SZÉP kártyás fizetés,Budapest
+59, Pizza Fabbrica,4.5,97,Garay utca 30,Hamburger,Magyaros,Olasz,Pizza,Készpénzes fizetés,Budapest
+60, Casa Mia Trattoria,4.2,12,Pozsonyi út 37,Olasz,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,Budapest
+61, Ragazzi Pizza & Burger,4,144,Lajos utca 98,Hamburger,Pizza,Készpénzes fizetés,,,Budapest
+62, Ígykerek,4.2,10,Szent István park 26,Olasz,Pizza,NetPincér GO,SZÉP kártyás fizetés,Érintkezésmentes kiszállítás,Budapest
+63, Magyar Menübár,4,71,Üllői út 121,Pizza,Reggelizőhely,Tészta,Leves,Magyaros,Budapest
+64, Avanti Pizzéria - Lajos utca,4,93,Lajos utca 98,Olasz,Hamburger,Amerikai,Pizza,Készpénzes fizetés,Budapest
+65, Theo Papa Konyhája,4.2,1481,Mártírok útja 240,Pizza,Nemzetközi,Magyaros,Mexikói,Amerikai,Budapest
+66, Bíbor Pizza,4.5,44,Népfürdő utca 17,Pizza,Készpénzes fizetés,,,,Budapest
+67, Trattoria Toscana,4.7,98,Belgrád rakpart 13,Pizza,Olasz,Ételérzékenyeknek is,Készpénzes fizetés,SZÉP kártyás fizetés,Budapest
+68, M35 Vendéglő,4.6,45,Márton utca 35,Olasz,Magyaros,Hamburger,Amerikai,Pizza,Budapest
+69, Pörkölő extra,4.3,109,Üllői út 121,Pizza,Reggelizőhely,Magyaros,Reggelizőhely,Készpénzes fizetés,Budapest
+70, Home Bistro extra,3.6,30,Üllői út 121,Pizza,Reggelizőhely,Magyaros,Reggelizőhely,Készpénzes fizetés,Budapest
+71, Duplo pizza,4.1,31,Üllői út 121,Pizza,Készpénzes fizetés,,,,Budapest
+72, Chicos Pizza & Nachos,3.9,285,Búza utca 6,Mexikói,Pizza,Készpénzes fizetés,,,Budapest
+73, Street Magic,4.1,197,Búza utca 6,Mexikói,Hamburger,Amerikai,Saláta,Pizza,Budapest
+74, Fries Point,4,172,Búza utca 6,Pizza,Magyaros,Készpénzes fizetés,,,Budapest
+75, Salt and Pepper,4.8,923,Antall József utca 24,Pizza,Hamburger,Algida,Készpénzes fizetés,SZÉP kártyás fizetés,Debrecen
+76, HappyHOT Pizza DEBRECEN,4.6,419,Bethlen utca 46,Olasz,Magyaros,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,Debrecen
+77, Piedone Pizzéria,3.9,206,Baross Gábor utca 27,Olasz,Magyaros,Hamburger,Grill,Pizza,Debrecen
+78, Casanova Pizza,3.5,112,Baross Gábor utca 27,Olasz,Magyaros,Mexikói,Hamburger,Amerikai,Debrecen
+79, Pomodoro Pizza,4.3,173,Simonffy utca 1,Pizza,Készpénzes fizetés,,,,Debrecen
+80, Station Bistro,4.7,385,Petőfi tér 10,Olasz,Hamburger,Amerikai,Pizza,Készpénzes fizetés,Debrecen
+81, Pizza Holiday Debrecen,4.8,321,Baross Gábor utca 31,Magyaros,Hamburger,Pizza,Készpénzes fizetés,,Debrecen
+82, Pizza Hut Debrecen,4,298,Péterfia utca 18,Pizza,Készpénzes fizetés,,,,Debrecen
+83, Bellozzo - Debrecen,4.7,429,Csapó utca 30,Pizza,Tészta,Olasz,NetPincér GO,SZÉP kártyás fizetés,Debrecen
+84, Király Pizza Debrecen,4.3,206,Batthyány utca 4,Magyaros,Hamburger,Pizza,Készpénzes fizetés,,Debrecen
+85, Full Pizza,4.5,225,Sarló utca 2,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,,Debrecen
+86, Corleone Ristorante,4.5,138,Simonffy utca 7,Olasz,Tészta,Pizza,Tészta,Készpénzes fizetés,Debrecen
+87, Dirty Dogs,4.6,178,Darabos utca 14 FSZ1,Pizza,Amerikai,Hamburger,Készpénzes fizetés,,Debrecen
+88, Pop Art Café,4.7,157,Bihari utca 2,Pizza,Hamburger,Magyaros,Készpénzes fizetés,,Debrecen
+89, Döner-Kebab Pizzéria,4.7,520,Mikepércsi út 10,Pizza,Magyaros,Görög,Török,Készpénzes fizetés,Debrecen
+90, Manna Étterem,4.7,123,Damjanich utca 22,Magyaros,Pizza,Készpénzes fizetés,,,Debrecen
+91, Pizza Piccante,4.5,7,Csapó utca 95,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,,Debrecen
+92," Upps a la Pasta, Pizza & Bar",4.2,47,Egyetem tér 1,Nemzetközi,Tészta,Pizza,Tészta,Készpénzes fizetés,Debrecen
+93, Egyél Debrecen!,3.5,26,Baross Gábor utca 27B,Magyaros,Pizza,Algida,Készpénzes fizetés,SZÉP kártyás fizetés,Debrecen
+94, Kalória Bisztró - Kishegyesi út,4.5,8,Kishegyesi út 1-11,Magyaros,Görög,Pizza,NetPincér GO,SZÉP kártyás fizetés,Debrecen
+95, Pálma Pub,4.6,66,Simonyi utca 44,Olasz,Magyaros,Grill,Pizza,Grill,Debrecen
+96, Pizza Paradiso,3.6,3,Móricz Zsigmond körút 22,Pizza,Készpénzes fizetés,,,,Debrecen
+97, Pizzaguru,4.8,228,Oskola utca 8,Saláta,Tészta,Leves,Pizza,Saláta,Szeged
+98, Duna Döner Szeged,4.7,450,Oskola utca 23,Pizza,Hamburger,Grill,Török,NetPincér GO,Szeged
+99, Turbó Pizza,4.7,258,Tisza Lajos Körút 59,Olasz,Pizza,Készpénzes fizetés,,,Szeged
+100, Pizza DiAngelo,4.6,208,Csongrádi sugárút 8/B,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,,Szeged
+101, American Chicken Fast Food & Pizza,4.7,557,Fésű utca 6,Amerikai,Hamburger,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,Szeged
+102, Pizzamonster,4.7,541,Sárosi utca 2,Amerikai,Hamburger,Olasz,Pizza,Készpénzes fizetés,Szeged
+103, Happy Hot Pizza Szeged,4.8,233,Makkosházi Körút 23,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,,Szeged
+104, Margaréta Pizzéria,4.6,72,Horváth Mihály utca 7,Pizza,SZÉP kártyás fizetés,,,,Szeged
+105, Pizza e Pasta,4.5,72,Klauzál Tér 6,Pizza,Olasz,Készpénzes fizetés,SZÉP kártyás fizetés,,Szeged
+106, Pizzafaló Szeged,4.4,67,Vedres utca 14,Cukrászda,Hamburger,Olasz,Pizza,Készpénzes fizetés,Szeged
+107, Forza Italia Étterem és Pizzéria,4.8,103,Kálvária Sugárút 11-Sep,Olasz,Tészta,Pizza,Tészta,Készpénzes fizetés,Szeged
+108, Zero Street Food,4.5,97,Jókai utca 1,Pizza,Amerikai,Hamburger,Ételérzékenyeknek is,Készpénzes fizetés,Szeged
+109, Lucky Pizzéria,4.8,156,Kálvária tér 32,Olasz,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,Szeged
+110, Rudi & Fickó,4.8,26,Oroszlán utca 4,Pizza,NetPincér GO,SZÉP kártyás fizetés,Érintkezésmentes kiszállítás,,Szeged
+111, Monkey's Bistro - Szeged,4.5,51,Pille utca 15,Magyaros,Hamburger,Pizza,Készpénzes fizetés,,Szeged
+112, Campus ízművek és látványpizzéria,4.6,13,Vitéz utca 24,Pizza,NetPincér GO,SZÉP kártyás fizetés,Érintkezésmentes kiszállítás,,Szeged
+113, Görög Pizzéria,4.7,101,Fürj utca 29,Magyaros,Pizza,Készpénzes fizetés,,,Szeged
+114, Pizza Király Szeged,4.7,34,Fő fasor 69/A,Magyaros,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,Szeged
+115, Tibi Papa Zabbantyú & Home Food,4.8,36,Boldogasszony sugárút 63,Pizza,Szendvics,Saláta,Olasz,Saláta,Szeged
+116, Zed Slice,4.9,87,Petőfi Sándor sugárút 24,Cukrászda,Pizza,Készpénzes fizetés,,,Szeged
+117, Pizza Love,4.8,128,József Attila sugárút 128,Olasz,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,Szeged
+118, Napfény Street Food,4.6,10,Szabadkai út 7,Pizza,Hamburger,Készpénzes fizetés,,,Szeged
+119, Boss Pizzéria és Hamburger Bár,5,1,Dorozsmai út 191,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,,Szeged
+120, Rustica Pizzéria,4.5,31,Szentháromság utca 6,Nemzetközi,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,Szeged
+121, Rockabilly Chicken,4.8,621,Mésztelep 1/A,Pizza,Hamburger,Magyaros,Algida,Készpénzes fizetés,Miskolc
+122, Don Pepe - Miskolc,4.7,670,Corvin Ottó u 3,Olasz,Nemzetközi,Magyaros,Hamburger,Vegán,Miskolc
+123, Az Íz,4.3,23,Hunyadi János utca 56,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,,Miskolc
+124, Pizza Hut Miskolc Pláza,4.6,174,Szentpáli utca 4,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,,Miskolc
+125, Rossita,4.8,626,Meggyesalja u. 18,Olasz,Pizza,Készpénzes fizetés,,,Miskolc
+126, Slambuc Gyorsétterem és Pizzéria,4.9,912,Szendrei J��nos utca 2,Gyorsétterem,Magyaros,Pizza,Saláta,Algida,Miskolc
+127, Pizza Mobil,4.7,365,Zamenhof utca 1,Olasz,Pizza,Készpénzes fizetés,,,Miskolc
+128, Király Pizza - Miskolc,4.6,918,Déryné utca 7,Olasz,Hamburger,Amerikai,Görög,Pizza,Miskolc
+129, Diablo Pizzéria Miskolc,4.3,235,Csabai kapu 26,Olasz,Magyaros,Vegetariánus,Pizza,Vegetáriánus,Miskolc
+130, Bella Itália Pizzéria - Miskolc,4.8,138,Szentpáli utca 6-Feb,Olasz,Magyaros,Vegetariánus,Pizza,Vegetáriánus,Miskolc
+131, Valentino Pizzéria,4.9,58,Kuruc utca 37,Pizza,Készpénzes fizetés,,,,Miskolc
+132," Babylon Pizzéria, Vendégház",4.8,267,Leventevezér utca 10,Magyaros,Pizza,Algida,Készpénzes fizetés,SZÉP kártyás fizetés,Miskolc
+133, Pizza Gábor,4.3,69,Bajcsy-Zsilinszky út 4-Feb,Pizza,Készpénzes fizetés,,,,Miskolc
+134, Pizzastation 27,4.3,139,Széchenyi István út 27,Görög,Pizza,Készpénzes fizetés,,,Miskolc
+135, Chef House,4.7,50,Egyetemváros A/6.,Pizza,Magyaros,Hamburger,Készpénzes fizetés,,Miskolc
+136, Príma Pizza,4.8,139,Ady Endre utca 9,Pizza,Készpénzes fizetés,,,,Miskolc
+137, Blue Bistro,4.6,73,Egyetemváros Menza Épület,Olasz,Hamburger,Pizza,Készpénzes fizetés,,Miskolc
+138, UNI-Pizza,4.4,15,Egyetemváros A/6,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,,Miskolc
+139, Pizza Boy Miskolc,4.7,96,Mésztelep 1/A,Pizza,Algida,Készpénzes fizetés,SZÉP kártyás fizetés,,Miskolc
+140, Pizza Napoli,4.5,105,Kassai utca 55,Olasz,Pizza,Készpénzes fizetés,,,Miskolc
+141, Don Pepe - Pécs,4.7,875,Megyeri út 76,Olasz,Nemzetközi,Magyaros,Hamburger,Vegán,Pécs
+142, Donkey Pizza,4.7,478,Rákóczi út 50,Pizza,Algida,Készpénzes fizetés,,,Pécs
+143, Főnix Pizzéria,4.8,371,Hunyadi utca 2,Olasz,Pizza,Készpénzes fizetés,,,Pécs
+144, Pizza di Casa Pécs,4.7,594,Megyeri út 4,Olasz,Pizza,Készpénzes fizetés,,,Pécs
+145, Joker Food,4.6,314,Mártírok útja 14,Pizza,Magyaros,Hamburger,Készpénzes fizetés,,Pécs
+146, Apolló Étterem,4.6,315,Őz utca 5,Olasz,Magyaros,Pizza,Készpénzes fizetés,,Pécs
+147, Maestro Pizzeria - Pécs,4.5,178,Klimó György utca 12,Pizza,Magyaros,Hamburger,Amerikai,Olasz,Pécs
+148, Don Gatto Pizza,4.6,176,Xavér utca 19,Olasz,Magyaros,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,Pécs
+149, Pizza Gyár,4.8,1039,Xavér utca 19,Pizza,Olasz,Pizza,Ételérzékenyeknek is,Algida,Pécs
+150, Grano Pizza & Pasta & Salad,4.7,200,Rákóczi út 71/a,Pizza,Tészta,Olasz,Tészta,Algida,Pécs
+151, Napsugár Pizzéria-Étterem,4.4,221,Szabadság utca 26,Olasz,Magyaros,Hamburger,Amerikai,Pizza,Pécs
+152, Póker Pizza Pécs,4.8,159,Megyeri út 64,Olasz,Pizza,Készpénzes fizetés,,,Pécs
+153, Kebap & Pizza House,4.8,178,Rákóczi út 60,Gyorsétterem,Pizza,Török,NetPincér GO,SZÉP kártyás fizetés,Pécs
+154, Replay Café & Restaurant,4.6,45,Király utca 4,Pizza,Olasz,Nemzetközi,Mexikói,Hamburger,Pécs
+155, Pizza King Express Pécs,4.3,829,Budai Vám 1,Olasz,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,Pécs
+156, Elefántos Étterem és Pizzéria,4.6,49,Jókai tér 6,Pizza,Olasz,Algida,Készpénzes fizetés,SZÉP kártyás fizetés,Pécs
+157, Király 21 Beerhouse & Grill,4.9,57,Király utca 21,Pizza,Olasz,Nemzetközi,Mexikói,Amerikai,Pécs
+158, Kívánság Pizzéria,4.4,103,Ágoston köz 16,Olasz,Pizza,Készpénzes fizetés,,,Pécs
+159, Pizza Expressz Futárszolgálat,4.6,46,Szabadság utca 26,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,,Pécs
+160, Tutto Bene Pizzéria,4.9,65,Hunyadi út 2,Olasz,Pizza,Készpénzes fizetés,,,Pécs
+161, Bellozzo - Pécs,4.9,141,Bajcsy-Zsilinszky utca 11,Pizza,Tészta,Olasz,NetPincér GO,SZÉP kártyás fizetés,Pécs
+162, Tímár26 Pizza,4.9,207,Tímár utca 26,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,,Pécs
+163, NaPizza,4.9,345,Megyeri út 72,Olasz,Pizza,Készpénzes fizetés,,,Pécs
+164, Paradicsom Pizza,4.7,169,Rókusalja utca 14,Magyaros,Pizza,Készpénzes fizetés,,,Pécs
+165, Pizza Zone Pécs,4.1,23,Szabadság utca 26,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,,Pécs
+166, Pizza Bagoly Pécs,4.5,31,József Attila utca 41,Olasz,Hamburger,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,Pécs
+167, Grizzly Pizzéria,4.7,70,Őz utca 5,Pizza,Készpénzes fizetés,,,,Pécs
+168, Elixír Restaurant and Pizzeria,4.6,93,Ifjúság útja 11,Olasz,Nemzetközi,Magyaros,Mexikói,Hamburger,Pécs
+169, Inferno's Pizzéria,4.5,61,Őz utca 5,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,,Pécs
+170, Happy Hippo,4.8,462,Esztergár Lajos utca 10,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,,,Pécs
+171, Azzurra Ristorante Pizzeria Bar,4.5,81,Király utca 19,Pizza,Saláta,Tészta,Olasz,Saláta,Pécs
+172, Ernesto Pizzéria - Pécs,4.3,66,József Attila utca 41,Olasz,Magyaros,Hamburger,Amerikai,Pizza,Pécs
+173, Új Duplapizza,4.7,215,Esztergár Lajos utca 10,Pizza,Készpénzes fizetés,,,,Pécs
+174, Flekken Főzőkonyha,4.5,284,Iparsziget utca 18,Olasz,Magyaros,Vegetariánus,Pizza,Vegetáriánus,Pécs
+175, Panda Fast Food,4.4,84,Százszorszép utca 19,Nemzetközi,Magyaros,Hamburger,Tészta,Pizza,Pécs
+176, GP Ring (Grappa Pizzéria),4.6,81,Szaturnusz utca 2,Olasz,Pizza,Algida,Készpénzes fizetés,SZÉP kártyás fizetés,Pécs
+177, Park Pizza,4.8,124,Dózsa György utca 104,Magyaros,Amerikai,Pizza,Készpénzes fizetés,SZÉP kártyás fizetés,Pécs
