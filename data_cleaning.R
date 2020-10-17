@@ -10,7 +10,7 @@ RIGHT = function(x,n){
 ##########
 
 #we start with the restaurant dataframe
-df_restaurant <- read_csv('./all_restaurants_v2_w_dist.csv')
+df_restaurant <- read_csv('./all_restaurants_v3_w_dists.csv')
 df_restaurant$Restaurant<-gsub('\n','',df_restaurant$Restaurant)
 df_restaurant$X1 <- NULL
 df_restaurant <- filter(df_restaurant,!duplicated(df_restaurant))
@@ -64,6 +64,7 @@ pizza_df <- filter(pizza_df,!duplicated(pizza_df))
 #make size of margherita pizzas a new column
 pizza_df$size <- gsub("[^0-9]",'',pizza_df$Product_Name)
 pizza_df$size <- RIGHT(pizza_df$size,2)
+pizza_df$Product_Name <- gsub("\\s*\\([^\\)]+\\)","",as.character(pizza_df$Product_Name))
 
 ########## 
 #### 3nd filtering for Coca cola (0,5l) 
@@ -80,14 +81,16 @@ to_remove <- c('2 db Margherita pizza (32cm), 2 db Coca-Cola szénsavas üdítõital
 logical_vect2 <- cola_df$Product_Name %in% to_remove
 cola_df <- filter(cola_df,!logical_vect2)
 cola_df$size <- gsub("[^0-9\\.]",'',cola_df$Product_Name)
-cola_df <- filter(cola_df,cola_df$size == '0.5' | cola_df$size == '05')
+cola_df$Product_Name <- gsub("\\s*\\w*\\.*$", "", cola_df$Product_Name)
+cola_df$Product_Name <- gsub("\\s*\\w*\\.*$", "", cola_df$Product_Name)
+
+#cola_df <- filter(cola_df,cola_df$size == '0.5' | cola_df$size == '05')
 
 ########## 
 #### 4th Create Final DF
 ##########
 
 final_df <- rbind(pizza_df,cola_df)
-
 
 #-------------------------------------------------------- not important
 write.csv(final_df,'./assignment.csv')

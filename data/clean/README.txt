@@ -5,7 +5,7 @@ The web scraping code can be viewed at the following github link:
 https://github.com/zsomborh/ba_da1/blob/master/Data%20Analytics%201%20-%20Database%20on%20pizzas.ipynb
 
 --------------------------------
-Observations = 361
+Observations = 459
 Variables = 15
 ---------------------------------
 
