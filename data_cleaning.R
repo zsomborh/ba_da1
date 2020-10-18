@@ -10,13 +10,13 @@ RIGHT = function(x,n){
 ##########
 
 #we start with the restaurant dataframe
-df_restaurant <- read_csv('./all_restaurants_v3_w_dists.csv')
+df_restaurant <- read_csv('./data_analysis1/all_restaurants_v3_w_dists.csv')
 df_restaurant$Restaurant<-gsub('\n','',df_restaurant$Restaurant)
 df_restaurant$X1 <- NULL
 df_restaurant <- filter(df_restaurant,!duplicated(df_restaurant))
 
 #then we go for product database
-df_product <- read_csv('all_products.csv')
+df_product <- read_csv('./data_analysis1/all_products.csv')
 df_product$X1 <- NULL
 df_product$Restaurant<-gsub('\n','',df_product$Restaurant)
 df_product <- filter(df_product,!duplicated(df_product))
@@ -92,5 +92,21 @@ cola_df$Product_Name <- gsub("\\s*\\w*\\.*$", "", cola_df$Product_Name)
 
 final_df <- rbind(pizza_df,cola_df)
 
+final_df$Feature1 <- replace(final_df$Feature1,is.na(final_df$Feature1),'')
+final_df$Feature2 <- replace(final_df$Feature2,is.na(final_df$Feature2),'')
+final_df$Feature3 <- replace(final_df$Feature3,is.na(final_df$Feature3),'')
+final_df$Feature4 <- replace(final_df$Feature4,is.na(final_df$Feature4),'')
+final_df$Feature5 <- replace(final_df$Feature5,is.na(final_df$Feature5),'')
+
+final_df$Tags <- with(final_df, paste0(Feature1,Feature2,Feature3,Feature4,Feature5))
+
+final_df$Feature1<-NULL
+final_df$Feature2<-NULL
+final_df$Feature3<-NULL
+final_df$Feature4<-NULL
+final_df$Feature5<-NULL
+final_df$ProperAddress<-NULL
+
+
 #-------------------------------------------------------- not important
-write.csv(final_df,'./assignment.csv')
+write.csv(final_df,'./data_analysis1/assignment.csv')
