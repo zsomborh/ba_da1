@@ -45,61 +45,111 @@ pizza_df <- filter(final_df, logical_vect|logical_vect2)
 
 
 # Manually found some observations that should be dropped while looking through the text (e.g.: menu discounts)
-# We couldn't filter for features such as:
-  #szenhidratcsokkentett, vegan, glutenmentes, teljes kiorlesu,
-  
+# Since we only care about 32cm margherita pizzas, I removed every other observation with special characteristics such as: 
+#   szenhidratcsokkentett, vegan, glutenmentes, teljes kiorlesu, cube_shaped etc...
+#   we also dropped Princess Bakery & Bistro since their pricing/was not compatible with the exercise
+
 to_remove <- c('Margitka pizza (32cm)',
                "1 db Margherita pizza (32cm), 1 db Calzone Classico pizza",
                "2 db Margherita pizza (32cm), 2 adag Tiramisu",
                "1 adag Spaghetti Bolognese, 1 db Margherita pizza (32cm)",
-               "2 db Margherita pizza (32cm), 2 db Coca-Cola sz?nsavas ?d?t?ital",
+               "2 db Margherita pizza (32cm), 2 db Coca-Cola szénsavas üdítoital",
                "1 db Margherita pizza (32cm), 1 db Calzone Classico pizza, 2 adag Sajttorta",
-               'Margherita pizza men? poharas j?gkr?mmel',
-               "Margherita pizza (32cm) + Carte D'or j?gkr?m (465ml) + San Benedetto ?sv?nyv?z (0,5l)",
-               "Margitszigeti sz?nsavmentes krist?lyv?z (0,5l)",
-               "Margitszigeti sz?nsavas krist?lyv?z (0,5l)",
-               "Margarita pizza San Francisco st?lus? t?szt?val, sajttal t?lt?tt sz?llel (31cm)",
-               "Margarita pizza San Francisco st?lus? t?szt?val, sajttal t?lt?tt sz?llel (38cm)",
-               "Margarita - nagy m?ret",
-               "Margarita - k?zepes m?ret",
-               'H?rman p?rban akci? (Cannibale pizza, Margherita pizza, Prosciutto pizza)',
+               'Margherita pizza menü poharas jégkrémmel',
+               "Margherita pizza (32cm) + Carte D'or jégkrém (465ml) + San Benedetto ásványvíz (0,5l)",
+               "Margitszigeti szénsavmentes kristályvíz (0,5l)",
+               "Margitszigeti szénsavas kristályvíz (0,5l)",
+               "Margarita pizza San Francisco stílusú tésztával, sajttal töltött széllel (31cm)",
+               "Margarita pizza San Francisco stílusú tésztával, sajttal töltött széllel (38cm)",
+               "Margarita - nagy méret",
+               "Margarita - közepes méret",
+               'Hárman párban akció (Cannibale pizza, Margherita pizza, Prosciutto pizza)',
                '2 db Margherita pizza (32cm)',
-               'Margarita twister (6db)')
+               'Margarita twister (6db)',
+               'Margherita prima pizza (32cm)'
+)
 
+pizza_df<- filter(pizza_df,!pizza_df$Restaurant == 'Princess Bakery & Bistro')
 logical_vect3 <- pizza_df$Product_Name %in% to_remove
 pizza_df <- filter(pizza_df,!logical_vect3)
-pizza_df <- filter(pizza_df,!duplicated(pizza_df))
 
-#make size of margherita pizzas a new column
+
+#make size of margherita pizzas a new column so that we can filter them out in our population
 pizza_df$size <- gsub("[^0-9]",'',pizza_df$Product_Name)
 pizza_df$size <- RIGHT(pizza_df$size,2)
+pizza_df <- filter(pizza_df,pizza_df$size == 32)
+
 pizza_df$Product_Name <- gsub("\\s*\\([^\\)]+\\)","",as.character(pizza_df$Product_Name))
+
+#Since we are only interested in 32cm Margherita pizzas for given restaurant, we needed to eliminate some more
+to_remove2 <- c('Margherita calzone pizza',
+                'Campus margherita prémium pizza vargányával fûszerezve',
+                'Margherita prima pizza', 'Margherita con prosciutto di Parma pizza',
+                'LightCarb Vegán Pepe margaritája pizza normál tésztával',
+                'LightCarb Vegán Pepe margaritája pizza vékony tésztával',
+                'LightCarb Pepe margaritája pizza vékony tésztával',
+                'Pepe margaritája pizza vékony tésztával',
+                'LightCarb Pepe margaritája pizza normál tésztával',
+                'Vegán Pepe margaritája pizza vékony tésztával',
+                'Vegán Pepe margaritája pizza normál tésztával', 'Margherita kocka pizza',
+                'Margherita vegán pizza', 'Margherita di bufala pizza', 
+                'Extra Margherita pizza',
+                'Margaréta szénhidrát csökkentett pizza', 'Margaréta gluténmentes pizza',
+                'Margaréta korong', 'Buffala Margaritta pizza', 'Gluténmentes vegán Margaréta pizza',
+                'Gluténmentes Margaréta pizza', 'Szénhidrátcsökkentett Margaréta pizza', 'Margaréta vegán pizza',
+                'Olívás margarita pizza', 'Teljes kiõrlésû Olívás margherita pizza', 'Teljes kiõrlésû Margherita pizza',
+                'Margarita calzone pizza', 'Margherita di bufala pizza','Margerita con cotto pizza')
+
+logical_vect4 <- pizza_df$Product_Name %in% to_remove2
+pizza_df <- filter(pizza_df,!logical_vect4)
+pizza_df <- filter(pizza_df,!duplicated(pizza_df))
+
+#We remove size and product name and rename price column so that we can do an outer join with beverages
+colnames(pizza_df)[colnames(pizza_df) == 'Price'] <- 'margherita_pizza_price'
+pizza_df$Product_Name <- NULL
+pizza_df$size <- NULL
+
+#Removing duplicate values, if any... 
+pizza_df <- filter(pizza_df,!duplicated(pizza_df))
 
 ########## 
 #### 3nd filtering for Coca cola (0,5l) 
 ##########
 
 logical_vect <- grepl('Coca-Cola', final_df[['Product_Name']])
-cola_df <- filter(final_df, logical_vect)
-to_remove <- c('2 db Margherita pizza (32cm), 2 db Coca-Cola sz?nsavas ?d?t?ital',
+logical_vect2 <- grepl('Pepsi', final_df[['Product_Name']])
+
+beverage_df <- filter(final_df, logical_vect|logical_vect2)
+#manual removal of elements that don't fit criteria - coca cola beverages
+to_remove <- c('2 db Margherita pizza (32cm), 2 db Coca-Cola szénsavas üdítoital',
                'Tihany pizza (32cm), 0,33l, Coca-Cola',
-               '2 db 26cm-es pizza aj?nd?k 2 db Coca-Cola (0,25l) ?d?t?vel',
-               '2 db 32cm-es pizza aj?nd?k 2 db Coca-Cola (0,33l)',
-               'Okt?beri 2 db-os pizza men? + 1,25L Coca-Cola')
+               '2 db 26cm-es pizza ajándék 2 db Coca-Cola (0,25l) üdítovel',
+               '2 db 32cm-es pizza ajándék 2 db Coca-Cola (0,33l)',
+               'Októberi 2 db-os pizza menü + 1,25L Coca-Cola')
 
-logical_vect2 <- cola_df$Product_Name %in% to_remove
-cola_df <- filter(cola_df,!logical_vect2)
-cola_df$size <- gsub("[^0-9\\.]",'',cola_df$Product_Name)
-cola_df$Product_Name <- gsub("\\s*\\w*\\.*$", "", cola_df$Product_Name)
-cola_df$Product_Name <- gsub("\\s*\\w*\\.*$", "", cola_df$Product_Name)
+logical_vect3 <- beverage_df$Product_Name %in% to_remove
+beverage_df <- filter(beverage_df,!logical_vect3)
 
-#cola_df <- filter(cola_df,cola_df$size == '0.5' | cola_df$size == '05')
+#We create a separate column for sizes and filter for 0.5l products
+beverage_df$size <- gsub("[^0-9\\.]",'',beverage_df$Product_Name)
+beverage_df <- filter(beverage_df,beverage_df$size == '0.5' | beverage_df$size == '05')
+
+
+beverage_df$Product_Name <- NULL
+beverage_df$size <- NULL
+beverage_df <- filter(beverage_df,!duplicated(beverage_df))
+
+colnames(beverage_df)[colnames(beverage_df) == 'Price'] <- 'beverage_price'
 
 ########## 
 #### 4th Create Final DF
 ##########
+final_df <- merge(pizza_df, beverage_df, all = TRUE)
 
-final_df <- rbind(pizza_df,cola_df)
+#removing duplicates and obsevations where beverages is available but pizza is not. 
+logical_vect <- is.na(final_df$margherita_pizza_price)
+final_df <- filter(final_df,!logical_vect)
+
 
 final_df$Feature1 <- replace(final_df$Feature1,is.na(final_df$Feature1),'')
 final_df$Feature2 <- replace(final_df$Feature2,is.na(final_df$Feature2),'')
@@ -115,6 +165,7 @@ final_df$Feature3<-NULL
 final_df$Feature4<-NULL
 final_df$Feature5<-NULL
 final_df$ProperAddress<-NULL
+
 
 #-------------------------------------------------------- not important
 #writing date and time into output file name to avoid deleting previous outputs
