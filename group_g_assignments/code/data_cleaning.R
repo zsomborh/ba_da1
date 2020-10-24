@@ -18,6 +18,7 @@ RIGHT = function(x,n){
 #### 1st we join the two dataframes and do a small amount of data cleaning 
 ##########
 
+
 #we start with the restaurant dataframe
 df_restaurant <- read_csv('../data/raw/all_restaurants_v3_w_dists.csv')
 df_restaurant$Restaurant<-gsub('\n','',df_restaurant$Restaurant)
@@ -28,6 +29,7 @@ df_restaurant <- filter(df_restaurant,!duplicated(df_restaurant))
 df_product <- read_csv('../data/raw/all_products.csv')
 df_product$X1 <- NULL
 df_product$Restaurant<-gsub('\n','',df_product$Restaurant)
+df_product$Restaurant<-gsub('\r','',df_product$Restaurant)
 df_product <- filter(df_product,!duplicated(df_product))
 
 #creating merged database out of the two
@@ -150,24 +152,32 @@ final_df <- merge(pizza_df, beverage_df, all = TRUE)
 logical_vect <- is.na(final_df$margherita_pizza_price)
 final_df <- filter(final_df,!logical_vect)
 
+#replacing NAs with empty space - we didn't use it in the assingment in the end.
+#   final_df$Feature1 <- replace(final_df$Feature1,is.na(final_df$Feature1),'')
+#   final_df$Feature2 <- replace(final_df$Feature2,is.na(final_df$Feature2),'')
+#   final_df$Feature3 <- replace(final_df$Feature3,is.na(final_df$Feature3),'')
+#   final_df$Feature4 <- replace(final_df$Feature4,is.na(final_df$Feature4),'')
+#   final_df$Feature5 <- replace(final_df$Feature5,is.na(final_df$Feature5),'')
+#   final_df$Tags <- with(final_df, paste0(Feature1,Feature2,Feature3,Feature4,Feature5))
 
-final_df$Feature1 <- replace(final_df$Feature1,is.na(final_df$Feature1),'')
-final_df$Feature2 <- replace(final_df$Feature2,is.na(final_df$Feature2),'')
-final_df$Feature3 <- replace(final_df$Feature3,is.na(final_df$Feature3),'')
-final_df$Feature4 <- replace(final_df$Feature4,is.na(final_df$Feature4),'')
-final_df$Feature5 <- replace(final_df$Feature5,is.na(final_df$Feature5),'')
-
-final_df$Tags <- with(final_df, paste0(Feature1,Feature2,Feature3,Feature4,Feature5))
-
+#removing cols that we didn't use for the assignment
 final_df$Feature1<-NULL
 final_df$Feature2<-NULL
 final_df$Feature3<-NULL
 final_df$Feature4<-NULL
 final_df$Feature5<-NULL
 final_df$ProperAddress<-NULL
+final_df$Location<-NULL
 
+#standardising colnames with lowercase font + underscore as separator
+new_col_names <- c('restaurant','user_rating', 'no_ratings','address', 'city',
+                   'restaurant_latitude', 'restaurant_longitude', 'center_latitude',
+                   'center_longitude', 'distance_city_center', 'distance_ceu', 'margherita_pizza_price',
+                   'beverage_price')
+colnames(final_df) <- new_col_names
 
 #-------------------------------------------------------- not important
 #writing date and time into output file name to avoid deleting previous outputs
 st=format(Sys.time(), "%Y-%m-%d_%H_%M")
-write.csv(final_df, paste("../data/clean/assignment1_",st, ".csv", sep = ""))
+write_csv(final_df, paste("../data/clean/assignment1_v2_",st, ".csv", sep = ""))
+
