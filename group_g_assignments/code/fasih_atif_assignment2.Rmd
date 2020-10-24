@@ -1,0 +1,84 @@
+---
+title: "da_project_Q3"
+author: "Fasih Atif"
+date: "10/24/2020"
+output: html_document
+---
+
+### Install required libraries
+```{r, message = FALSE, warning=FALSE}
+library(tidyverse)
+library(ggcorrplot)
+library(stringr)
+```
+
+### Import data into dataframe "pizza_data"
+```{r, message = FALSE, warning=FALSE}
+pizza_data <- read_csv("assignment1_v2_2020-10-24_11_59.csv")
+```
+
+### Removed km from string and converted to numeric
+```{r}
+pizza_data <- mutate(pizza_data,"distance_city_center" = as.numeric(gsub("[^0-9\\.]","" , pizza_data$distance_city_center)))
+```
+
+# Correlation Matrix
+### Selecting relevant columns from main "pizza_data" and calculating correlation
+```{r}
+select_col <- pizza_data %>%
+  filter(city == "Budapest") %>%
+  select(user_rating,no_ratings,distance_city_center,margherita_pizza_price,beverage_price)
+
+cor <- cor(select_col, use = "pairwise.complete.obs")
+```
+
+### Visualizing the correlation matrix
+```{r}
+ggcorrplot(cor, method = "square",  type = "lower",lab = TRUE)
+
+```
+
+# Scatter Plots
+### Scatter plot for Budapest - user_rating vs price
+```{r}
+pizza_data %>% filter(city == "Budapest") %>% 
+  ggplot(aes(x = user_rating, y = margherita_pizza_price)) + 
+  geom_point() + theme_bw() +
+  geom_smooth(method = "lm")
+```
+
+### Scatter plot for countryside cities - user_rating vs price
+```{r}
+pizza_data %>% filter(city != "Budapest") %>% 
+  ggplot(aes(x = user_rating, y = margherita_pizza_price)) + 
+  geom_point() + theme_bw() +
+  geom_smooth(method = "lm")
+
+```
+
+### Scatter plot for Budapest - user_rating vs no_ratings
+```{r}
+pizza_data %>% filter(city == "Budapest") %>% 
+  ggplot(aes(x = no_ratings, y = user_rating )) + 
+  geom_point() + theme_bw() +
+  geom_smooth(method = "lm")
+
+```
+
+### Scatter plot for countryside cities - user_rating vs no_ratings
+```{r}
+pizza_data %>% filter(city != "Budapest") %>% 
+  ggplot(aes(x = no_ratings, y = user_rating )) + 
+  geom_point() + theme_bw() +
+  geom_smooth(method = "lm")
+```
+
+
+```{r}
+pizza_data %>% filter(city == 'Budapest') %>%
+  ggplot(aes( x = user_rating, y = no_ratings )) +
+  stat_summary_bin( fun = 'mean',
+                    geom = 'point', 
+                    color = 'red') + theme_bw()
+```
+
