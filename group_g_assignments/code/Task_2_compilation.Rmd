@@ -11,40 +11,19 @@ fig_width: 4
 fig_height: 2
 ---
 
-# Introduction
+## Introduction and data collection
 
-We set out to collect information on 32cm Margherita pizza and 0.5l cola prices from various locations within Hungary by looking at the menus available on one of the biggest Hungarian food delivery sites called NetPincer at <https://www.netpincer.hu/>. In this document we first describe the data collection steps which entailed web-scraping and introduce the main characteristics of our variables. After that, we analyze how strong the connection is between our variables and we will try to see if there is any significant driver when it comes to pricing. Finally we will test whether the average price of the pizza products in our sample has a statistically significant difference when comparing prices in Budapest vs prices in the rest of Hungary. All codes and files used for this analysis are available in our [github repo](https://github.com/zsomborh/ba_da1/tree/master/group_g_assignments).
+We set out to collect information on 32cm Margherita pizza and 0.5l cola prices from various locations within Hungary by web-scraping the menus available on one of the biggest Hungarian food delivery sites called NetPincer. All codes and files used for this analysis are avaialbe in our [github repo](https://github.com/zsomborh/ba_da1/tree/master/group_g_assignments).
 
-# Data collection
+We chose web-scraping in order to reach the highest possible data coverage without selection bias and also to have high data-quality by reducing the chances of manual error. We scraped data from Pizzerias from the 5 largest Hungarian cities (Budapest, Debrecen, Szeged, Miskolc and Pecs). We collected every information that was available on the site (e.g. rating, number of ratings, address) on the restaurants, their advertised products and created geo locations from their addresses so that we can calculate their distance from the city center in an automated manner. 
 
-Our approach to collecting data was web-scraping with the goal of creating two relational data tables, one for restaurants, and another for products. We chose web-scraping to reach a the highest possible data coverage without selection bias and also to have high data-quality by reducing the chances of manual error. In our population we included pizza places only from the 6 largest Hungarian cities. As for the structure of the webpage, one has to add a location to which they want the orders to be delivered, which is something we highly leveraged. We used these options to narrow down our scope in two ways:
+We had 3 main challenges when cleaning the scraped data. We needed to **identify the correct product types** and We dropped all observations that were not Margherita pizzas or Colas. We also had to **identifying the exact products with exact features** which was not easy since Margherita pizzas existed in the data with different features (e.g. low carb, vegan, thin crusted, with olives etc...). We eliminitad all observations with such extra features. After that we **looked at 32cm and 0.5l containers only** and dropped observations with different sizes.
 
--   We included restaurants from the chosen Hungarian cities only: Budapest, Debrecen, Szeged, Miskolc and Pecs.
+We tackled the above only by employing a number of transformations on a string variable which was the product description on the site. We also dropped any resulting duplicates to arrive to a tidy table. By that we entity-resolution and misambiguation thus had relatively high data quality. Unfortunately many restaurants didn't serve beverages or they served it in differnet sizes - in these cases we marked the beverage price with NA. 
 
-    -   For Budapest, we filtered for those restaurants that deliver to CEU (Central European University)
-    -   For the rest, we filtered for restaurants delivering to each city center
+## Descriptive statistics
 
--   The webpage allows the user to filter for a given type of restaurants - we chose Pizzerias.
-
-Our code run through each webpage and collected data on every restaurant available (given the above filters) and every product of these restaurants that they advertised on the page. We created two relational data tables, namely:
-
--   *all\_restaurants\_v3\_w\_dists.csv* which covers restaurant level information with several scraped and generated variables. We scraped the the name and address, the average ratings of users (this is an ordered qualitative variable with a scale of 1-5) and the number of given ratings. We further created geo locations (longitudes and latitudes) of the restaurants and their corresponding city center. We did this not only to calculate the km distance between restaurant vs city center, and restaurant vs CEU building, but also to be able to visualize these restaurants on a map chart.
-
--   *all\_products.csv* which has the name of the restaurant, the name of the product and the price of each product available as indicated on the website. These are saved down in our raw data folder.
-
-We joined our relational data tables and started data cleaning where we encountered multiple challenges. All traces of our efforts can be found in the *data\_cleaning.R* code, available in our repo. Our task was to find specific products in a specific size, whereas our data has multiple different products with varying features and in various sizes. And all we had was an indication of these in a string variable, which was the name of the product on the site (there wasn't any standardized naming convention for these products either - restaurants chose to update their products in any way they wanted). To sum it up, the main challenges were the following:
-
--   **Identifying the correct product types:** We dropped all observations that were not Margherita pizzas or Colas. An extra layer of difficulty was the name difference of Margherita in English and Hungarian (Margherita vs Margareta) and the fact that discounted menu packages existed that existed as a separate observation but they were the combination of 2-3 products.
-
--   **Identifying the exact products with exact features:** Margherita pizzas existed in the data with different features (e.g. low carb, vegan, thin crusted, with olives etc...). We eliminated all observations with such extra features.
-
--   **Looking at 32cm and 0.5l containers** Size of pizza and beverage was only available (if available at all) somewhere within the product description. Fortunately we could easily split this out into a variable since in most of the cases this was indicated at the very end of the string.
-
-Following the above three principles and removing resulting duplicates we achieved entity-resolution and disambiguation thus relatively high data quality. Unfortunately we couldn't get 0.5l beverage price for every restaurant in our final dataframe since many restaurants either didn't serve beverages or they served in different sizes only.
-
-# Exploratory data analysis
-
-Our dataframe holds 91 restaurants with Margherita pizza prices out of which only 28 served cola beverages in 0.5l containers as visible in Table 1. Figure 1 visualizes the distribution of each price variable, from which we see an interesting pattern. Both density plots look to be right-skewed, but what is even more interesting is that they seem to have two quasi-peaks, one higher peak at around 1,500 HUF for pizzas and around 350 HUF for cola beverages and a smaller one at around 1700 HUF for pizzas and 500 HUF for beverages.
+Our dataframe holds 91 restaurants with Margherita pizza prices out of which only 28 served cola beverages in 0.5l containers as visible in Table 1. Figure 1 visualises the distribution of each price variable, from which we can see that the density plots are right-skewed with a local and a global maximum. We can see in Figure 2 that the two maximum exist due to average prices being generally higher in our Budapest sample than in the other large cities.
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(fig.width=8, fig.height=4) 
@@ -106,11 +85,9 @@ p2<- ggplot( pizza_data , aes( x = beverage_price ) ) +
 print(xtb, comment=FALSE, include.rownames=FALSE)
 ```
 
-```{r fig 1, fig.width=8,fig.height=4, fig.cap='Price distribution for beverages and pizzas for the whole population', echo = FALSE , results = "asis", warning = FALSE, message = FALSE }
+```{r fig 1, fig.width=8,fig.height=1.5, fig.cap='Price distribution for beverages and pizzas for the whole population', echo = FALSE , results = "asis", warning = FALSE, message = FALSE }
 ggarrange(p1, p2, nrow = 1 )
 ```
-
-We thought of two possible explanations that can explain this pattern. The first one has to do with what we assumed form the beginning; pizza and beverage prices on average might be higher in Budapest than in the other large cities. The second less likely explanation is that our population can be divided into two types of restaurants - one cheaper and probably worse quality, and one more expensive. We will explore if our first explanation makes sense.
 
 ```{r , include = FALSE }
 pizza_data <- pizza_data %>% 
@@ -144,7 +121,6 @@ bev_sum  <- pizza_data %>%
     skew     = skewness(beverage_price),
     numObs   = sum( !is.na( beverage_price ) ) )
 price_summary <- pizza_sum %>% add_row( bev_sum ) 
-xtb <- xtable(price_summary,type = "latex", caption = "Summary statistics in Budapest and Rest of Hungary breakdown")
 ```
 
 ```{r , include = FALSE}
@@ -153,39 +129,15 @@ p1<- ggplot( pizza_data , aes( x = margherita_pizza_price, fill = city, colour =
     geom_density( aes(y = ..density..) , alpha = .5 , bw = 100, color = 'black')+
     labs(x='Margherita Pizza Prices (in HUF)',y='Density') +
     scale_color_brewer(palette="Dark2")
-p2<- ggplot( pizza_data , aes( x = beverage_price, fill = city, colour = city ) ) +
-    geom_histogram( aes(y = ..density..) , alpha = .5, binwidth = 30, colour = 'gray')+
-    geom_density( aes(y = ..density..) , alpha = .5 , bw = 30, color = 'black')+ 
-    labs(x='Beverage Prices (in HUF)',y='Density') +
-    scale_color_brewer(palette="Dark2") 
-```
-
-```{r, echo = FALSE , results = "asis", warning = FALSE, message = FALSE }
-print(xtb, comment=FALSE, include.rownames=FALSE)
-```
-
-```{r, echo = FALSE , fig.cap='Price distibution of pizza and beverage prices in Budapest and Rest of Hungary', results = "asis", warning = FALSE, message = FALSE }
-ggarrange(p1, p2, nrow = 1,common.legend = TRUE, legend="bottom")
-```
-
-As visible from Table 2, the mean pizza and beverage prices are much lower outside Budapest. We can not really comment yet on a general pattern, especially that the standard deviation of pizza and beverage prices are quite high in the Budapest sample. This difference might be by chance only, but it also signals that we might be on the right track. From this table we can also learn that the number of observations are quite symmetric, we have almost as many observations from Budapest as from the Rest of Hungary.
-
-We can have a closer look on the price distribution charts in Figure 2. Looks like the second peak in both BP and non-BP pizza distributions have vanished which led us to believe that the two peaks were indeed due to the average price (or rather mode) difference of prices in the distinct regions. We also added a boxplot in Figure 3 to visualize the differences.
-
-```{r , include = FALSE}
-p1 <- ggplot(pizza_data, aes(y = margherita_pizza_price, x = city)) +
-    geom_boxplot(color = "blue", size = 0.5, width = 0.1, alpha = 0.5) +
-    labs(x='Cities',y='Margherita Pizza Prices') + 
-    stat_boxplot(geom = "errorbar", width = 0.05,  size = 0.5) + 
-    stat_summary(fun=mean, geom="point", shape=20, size=5, color="red", fill="red")
 p2 <- ggplot(pizza_data, aes(y = beverage_price, x = city)) +
     geom_boxplot(color = "blue", size = 0.5, width = 0.1, alpha = 0.5) +
     labs(x='Cities',y='Margherita Pizza Prices') + 
     stat_boxplot(geom = "errorbar", width = 0.05,  size = 0.5) + 
     stat_summary(fun=mean, geom="point", shape=20, size=5, color="red", fill="red")
+
 ```
 
-```{r, echo = FALSE , fig.cap='Box plots of pizza and beverage prices in Budapest and Rest of Hungary', results = "asis", warning = FALSE, message = FALSE }
+```{r, echo = FALSE , fig.cap='Price distibution of pizza and beverage prices in Budapest and Rest of Hungary', results = "asis", warning = FALSE, message = FALSE , fig.height=2.2}
 ggarrange(p1, p2, nrow = 1,common.legend = TRUE, legend="bottom")
 ```
 
