@@ -10,15 +10,16 @@ output:
 fig_width: 4
 fig_height: 2
 ---
+
 ## Introduction and data collection
 
-We set out to collect information on 32cm Margherita pizza and 0.5l cola prices from various locations within Hungary by web-scraping the menus available on one of the biggest Hungarian food delivery sites called NetPincer. All codes and files used for this analysis are avaialbe in our [github repo](https://github.com/zsomborh/ba_da1/tree/master/group_g_assignments).
+We set out to collect information on 32cm Margherita pizza and 0.5l cola prices from various locations within Hungary by web-scraping the menus available on one of the biggest Hungarian food delivery sites called NetPincer. All codes and files used for this analysis are available in our [github repo](https://github.com/zsomborh/ba_da1/tree/master/group_g_assignments).
 
 We chose web-scraping in order to reach the highest possible data coverage without selection bias and also to have high data-quality by reducing the chances of manual error. We scraped data from Pizzerias from the 5 largest Hungarian cities (Budapest, Debrecen, Szeged, Miskolc and Pecs). We collected every information that was available on the site (e.g. rating, number of ratings, address) on the restaurants, their advertised products and created geo locations from their addresses so that we can calculate their distance from the city center in an automated manner. 
 
-We had 3 main challenges when cleaning the scraped data. We needed to **identify the correct product types** and We dropped all observations that were not Margherita pizzas or Colas. We also had to **identifying the exact products with exact features** which was not easy since Margherita pizzas existed in the data with different features (e.g. low carb, vegan, thin crusted, with olives etc...). We eliminitad all observations with such extra features. After that we **looked at 32cm and 0.5l containers only** and dropped observations with different sizes.
+We had 3 main challenges when cleaning the scraped data. We needed to **identify the correct product types** and We dropped all observations that were not Margherita pizzas or Colas. We also had to **identifying the exact products with exact features** which was not easy since Margherita pizzas existed in the data with different features (e.g. low carb, vegan, thin crusted, with olives etc...). We eliminated all observations with such extra features. After that we **looked at 32cm and 0.5l containers only** and dropped observations with different sizes.
 
-We tackled the above only by employing a number of transformations on a string variable which was the product description on the site. We also dropped any resulting duplicates to arrive to a tidy table. By that we entity-resolution and misambiguation thus had relatively high data quality. Unfortunately many restaurants didn't serve beverages or they served it in differnet sizes - in these cases we marked the beverage price with NA. 
+We tackled the above only by employing a number of transformations on a string variable which was the product description on the site. We also dropped any resulting duplicates to arrive to a tidy table. By that we entity-resolution and disambiguation thus had relatively high data quality. Unfortunately many restaurants didn't serve beverages or they served it in different sizes - in these cases we marked the beverage price with NA. 
 
 ## Descriptive statistics
 
@@ -149,12 +150,12 @@ In addition we made some experiments on correlations, which is available in the 
 
 ## **Two sample t-test -** Analyzing 32 cm Margherita pizza prices
 
-**Question**: Is the average price of marheritha is the same in Budapest vs. Rest of Hungary (other big cities: Debrecen, Szeged, Pécs, Miskolc)
+**Question**: Is the average price of margherita is the same in Budapest vs. Rest of Hungary (other big cities: Debrecen, Szeged, Pécs, Miskolc)
 
 **H0**: *avg. price of pizza in Budapest - avg. price of pizza outside of Budapest == 0* \
 **H-Alternative**: *avg. price of in Budapest - avg. price outside of Budapest != 0*
 
-We test for equality of average prices. We can reject N0, if p \< 0.05.
+We test for equality of average prices. We can reject N0, if p < 0.05.
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE, include = FALSE }
 t.test(margherita_pizza_price ~ city, pizza_data)
@@ -162,3 +163,9 @@ t.test(margherita_pizza_price ~ city, pizza_data)
 
 **Result**: t = 4.0079, df = 82.502, p-value = 0.0001337, 95 percent confidence interval: [134.9711; 400.9516].
 The p-value is way smaller than the defined 5%, hence, we CAN reject the Null hypothesis. The probability of making a false positive error is about 0.013%. True difference in means is not equal to 0, hence avg. price of pizza in Budapest vs. avg. price of pizza outside of Budapest differs significantly. 
+
+# Summary: 
+
+Our findings indicate that there is a significant difference between mean prices of pizza and beverages between Budapest and rest of Hungary. We saw that not only from visual elements such as the density plot and box plots, but we also proved this with a t-test on 95% significance.
+
+
