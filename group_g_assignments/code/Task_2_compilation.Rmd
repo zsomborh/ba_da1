@@ -6,15 +6,16 @@ output:
   pdf_document: default
   html_document:
     df_print: paged
+  word_document: default
 fig_width: 4
 fig_height: 2
 ---
 
-## Introduction
+# Introduction
 
 We set out to collect information on 32cm Margherita pizza and 0.5l cola prices from various locations within Hungary by looking at the menus available on one of the biggest Hungarian food delivery sites called NetPincer at <https://www.netpincer.hu/>. In this document we first describe the data collection steps which entailed web-scraping and introduce the main characteristics of our variables. After that, we analyze how strong the connection is between our variables and we will try to see if there is any significant driver when it comes to pricing. Finally we will test whether the average price of the pizza products in our sample has a statistically significant difference when comparing prices in Budapest vs prices in the rest of Hungary. All codes and files used for this analysis are available in our [github repo](https://github.com/zsomborh/ba_da1/tree/master/group_g_assignments).
 
-## Data collection
+# Data collection
 
 Our approach to collecting data was web-scraping with the goal of creating two relational data tables, one for restaurants, and another for products. We chose web-scraping to reach a the highest possible data coverage without selection bias and also to have high data-quality by reducing the chances of manual error. In our population we included pizza places only from the 6 largest Hungarian cities. As for the structure of the webpage, one has to add a location to which they want the orders to be delivered, which is something we highly leveraged. We used these options to narrow down our scope in two ways:
 
@@ -41,7 +42,7 @@ We joined our relational data tables and started data cleaning where we encounte
 
 Following the above three principles and removing resulting duplicates we achieved entity-resolution and disambiguation thus relatively high data quality. Unfortunately we couldn't get 0.5l beverage price for every restaurant in our final dataframe since many restaurants either didn't serve beverages or they served in different sizes only.
 
-## Exploratory data analysis
+# Exploratory data analysis
 
 Our dataframe holds 91 restaurants with Margherita pizza prices out of which only 28 served cola beverages in 0.5l containers as visible in Table 1. Figure 1 visualizes the distribution of each price variable, from which we see an interesting pattern. Both density plots look to be right-skewed, but what is even more interesting is that they seem to have two quasi-peaks, one higher peak at around 1,500 HUF for pizzas and around 350 HUF for cola beverages and a smaller one at around 1700 HUF for pizzas and 500 HUF for beverages.
 
@@ -191,7 +192,7 @@ ggarrange(p1, p2, nrow = 1,common.legend = TRUE, legend="bottom")
 
 \newpage
 
-## Correlation
+# Correlation
 
 We wanted to measure the strength and direction of the linear relationships between the various variables in our data table such as price, distance to city center,beverage price, ratings and no of ratings. We drew up a correlation matrix for the two locations Budapest and Rest of Hungary which helped us summarize the relationships of the variables against each other in both locations.
 
@@ -272,11 +273,11 @@ ratings_distance2 <- pizza_data %>%
 ggarrange(ratings_distance1,ratings_distance2, nrow =1)
 ```
 
-## Hypothesis testing
+# Hypothesis testing
 
-### **Two sample t-test**
+## **Two sample t-test -** Analyzing 32 cm Margherita pizza prices + beverage
 
-Question: Is the average price of marheritha is the same in Budapest vs. Rest of Hungary (other big cities: Debrecen, Szeged, Pécs, Miskolc)
+**Question**: Is the average price of marheritha is the same in Budapest vs. Rest of Hungary (other big cities: Debrecen, Szeged, Pécs, Miskolc)
 
 **H0**: *avg. price of pizza in Budapest - avg. price of pizza outside of Budapest == 0*
 
@@ -292,7 +293,7 @@ t.test(margherita_pizza_price ~ city, pizza_data)
 
 **Result**: True difference in means is not equal to 0 hence avg. price of pizza in Budapest vs. avg. price of pizza outside of Budapest differs significantly. Hence, we CAN reject the Null hypothesis. The probability of making a false positive error is about 0.013%.
 
-### Summary statistics of Margherita pizza price in Budapest and Rest of Hungary
+### Summary Statistics 
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
 budapest_sum <- pizza_data %>% filter(city == 'Budapest') %>%
@@ -330,9 +331,7 @@ print(xtb, comment=FALSE, include.rownames=FALSE)
 
 ```
 
-### Analyzing 32 cm margherita pizza prices + beverage
-
-**Two sample t-test**
+## **Two sample t-test -** Analyzing 32 cm Margherita pizza prices + beverage
 
 **Question**: Is the average price of margheritha is the same in Budapest vs. Rest of Hungary (other big cities: Debrecen, Szeged, Pécs, Miskolc)
 
@@ -340,9 +339,9 @@ print(xtb, comment=FALSE, include.rownames=FALSE)
 
 **H-Alternative**: *avg. price of in Budapest - avg. price outside of Budapest != 0*
 
-We test for equality of average prices. We can reject N0 if p \< 0.05.
+We test for equality of average prices. We can reject N0 if p < 0.05.
 
-We received the following results:
+We receive the following results:
 
 ```{r, echo = FALSE}
 t.test(margherita_pizza_price+beverage_price ~ city, pizza_data)
@@ -351,7 +350,7 @@ t.test(margherita_pizza_price+beverage_price ~ city, pizza_data)
 
 **Result**: True difference in means is not equal to 0 hence avg. price of pizza + beverage in Budapest vs. avg. price of pizza + beverage outside of Budapest differs significantly. Hence, we CAN reject the Null hypothesis. The probability of making a false positive error is about 0.0022%.
 
-### Summary statistics of Margherita pizza + beverage price in Budapest and Rest of Hungary
+### Summary Statistics
 
 ```{r, echo = FALSE, message = FALSE, warning = FALSE}
 budapest_sum <- pizza_data %>% 
