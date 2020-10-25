@@ -1,0 +1,173 @@
+---
+title: "Analysis on used cars"
+date: 2020-10-25
+author: "Zsombor Hegedus"
+output: pdf_document
+        #html_document
+  
+---
+
+
+
+## Introduction
+
+The purpose of this document is to summarise the work done to complete two homeworks.
+* The first one is Data exercise 2 in Chapter 1 (p28)
+* The second one is Data exercise 2 in Chapter 2 (p55)
+ 
+The task at hand was to collect data on used cars of a specific model form the Web using web scraping and then describe:
+
+* The process of web scraping
+* How many observations I collected
+* Encountered difficulties
+* Cleaning the data 
+* Describing the cleaned dataset
+
+All codes and files used for this analysis are avaialbe in this [github repo](https://github.com/zsomborh/ba_da1/tree/master/homework).
+
+## Web-scraping
+
+The website of my choice was hasznaltauto.hu, as this is one of the biggest Hungarian sites advertising used cars. On the opening page of the site, there is a search prompt that asks you what type of car you are looking for. There is a lot of options to choose from in the dropdown where a small number in brackets indicates how many of such vehicles are advertised currently. I briefly looked through all brands and decided to go with a car that has a relatively high number of adverts. This is the Renault Megane.
+
+After choosing the car, I was directed to a site with 20 adverts/page - I will call this a subpage. My first task for the scraping was figuring out a way to scrape every subpage that is related to the Megane advertisements. I needed to go through 58 of such webpages. The way how these distinct pages are represented in URL is by a string in the end with *page* where X denotes the order of a given subpage. To go through each one of them, I generated all 58 URLs with their respective *page* appendage and put them in a list.
+
+After the list of URL links was created, I took one of the subpages and wrote a scraper in Python. The html code behind these subpages was relatively clear and simple and there were a lot of features that I could collect. The Python package, called BeautifulSoup was used for the parsing, and the most common functions that I took were the *.find()* and *.findAll()* functions. The result of the scraping was a Pandas dataframe that I downloaded as a csv file and uploaded to github.
+
+## Challenges faced and data cleaning
+
+The challenges that I needed to face can be grouped into the following categories: 
+
+* Dispersed nature of data: only 20 observations were available for each subpage.
+* Hidden layers: price appeared twice due to hidden layers in the html code which I realized at a later stage only making my price list twice as big as the other lists.
+* Unnecessary characters: some characters like spaces, or units of measurement were scraped along with the necessary information.
+* Missing data: Some ads had missing data that I needed to replace in my dataframe with NAs.
+
+Variables and README file is available in the [github repo](https://github.com/zsomborh/ba_da1/tree/master/homework).
+
+When I started data analysis, there were a few issues that I needed to address and clean my data before I could proceed. First of all Prices variable contained characters such as 'Ft' which stands for Forint. This could be solved easily by replacing the non-number characters using the *gsub* function. However some observations had taxation related information that I needed to filter out with more sophisticated means. At the end of such observations, there was always a string followed by an integer, which marked the final price that someone has to pay for the car, taxes included. I used the separate function and used that specific string **fizetendo** as my separator.
+
+I did further smaller cleaning steps as well namely:
+
+* Dropping observations where price were not available 
+* Changing numeric variables to be recognised as numeric with as.numeric function
+* I converted Engine variable to factor variable, so that I can use it for further analysis
+
+## Describing the data
+ 
+Table 1 shows a summary of the kez features of used car prices. We have 1147 observations (we deleted 3 where price was NA). Our median is much lower compared to the mean, and the price distribution has a positive skewness with a thick right tail as you can see from Figure 1. Giving a quick overview on prices, the earlier the car was made, the higher it's price will be. 
+ 
+```{r , include = FALSE}
+
+
+library(tidyverse)
+library(moments)
+library(scales)
+library(ggcorrplot)
+library(xtable)
+
+df <- read_csv('../used_cars.csv')
+
+#some values have Fizetendo in their name, we need the price that is after that only. 
+df <- df %>% 
+    filter(!is.na(Prices)) %>% 
+    separate(Prices , 'Fizetend', into = c("first","second")) %>% 
+    mutate(Prices = ifelse(!is.na(second), second,first),
+           Prices = as.numeric(gsub('[^0-9\\.]','',Prices)),
+           first=NULL,
+           second=NULL)
+
+df <- df %>% 
+    mutate(
+        Displacement = as.numeric(Displacement),
+        Power_kW = as.numeric(Power_kW),
+        Horsepower = as.numeric(Horsepower),
+        Km = as.numeric(Km),
+        PictureCount = as.numeric(PictureCount),
+        Engine = factor(Engine))
+
+df <- df %>% 
+    filter(!is.na(Prices))
+
+car_sum <- df %>% 
+    summarise(
+        mean     = mean(Prices),
+        median   = median(Prices),
+        std      = sd(Prices),
+        iq_range = IQR(Prices), 
+        min      = min(Prices),
+        max      = max(Prices),
+        skew     = skewness(Prices),
+        numObs   = sum( !is.na( Prices ) ) )
+
+xtb <- xtable(car_sum,type = "latex", caption = "Summary statistics used Renault Megane cars")
+
+```
+```{r, echo = FALSE , results = "asis", warning = FALSE, message = FALSE }
+print(xtb, comment=FALSE, include.rownames=FALSE)
+```
+```{r , fig.width=8,fig.height=4, fig.cap='Price distribution uf used cars', echo = FALSE  }
+#, results = "asis", warning = FALSE, message = FALSE
+ggplot( df , aes( x = Prices ) ) +
+    geom_histogram( aes(y = ..density..) , alpha = 1, binwidth = 500000, color = 'black', fill = 'white') +
+    geom_density( aes(y = ..density..) , alpha = .2 , bw = 500000, color = 'black', fill="#FF6666") +
+    scale_x_continuous(labels = comma)+ 
+    scale_y_continuous(labels = comma)+ 
+    labs(x='Price', y= 'Density')
+```
+
+It is worth taking a look at Table 2 and Figure 2 as well. We can see that most of our cars are either run on Patrol or Gasoline, and looks like Petrol run cars on average cost more.  
+
+```{r, echo = FALSE , results = "asis", warning = FALSE, message = FALSE }
+
+car_sum <- df %>% 
+    group_by(Engine) %>% 
+    summarise(
+        mean     = mean(Prices),
+        median   = median(Prices),
+        std      = sd(Prices),
+        iq_range = IQR(Prices), 
+        min      = min(Prices),
+        max      = max(Prices),
+        skew     = skewness(Prices),
+        numObs   = sum( !is.na( Prices ) ) )
+```
+
+```{r, echo = FALSE , results = "asis", warning = FALSE, message = FALSE }
+
+xtb <- xtable(car_sum,type = "latex", caption = "Summary statistics used Renault Megane cars")
+print(xtb, comment=FALSE, include.rownames=FALSE)
+```
+
+
+```{r , fig.width=8,fig.height=4, fig.cap='Price distribution of used cars with Gasoline or Petrol engine', echo = FALSE , results = "asis", warning = FALSE, message = FALSE }
+
+engine_df <- df %>% filter(Engine == 'Benzin'| Engine == 'Dízel')
+
+ggplot( engine_df , aes( x = Prices, colour = Engine, fill = Engine ) ) +
+    geom_histogram( aes(x = Prices) , alpha = 0.5, binwidth = 500000) +
+    scale_x_continuous(labels = comma)+ 
+    scale_y_continuous(labels = comma)+ 
+    facet_wrap(~Engine)+
+    labs(x='Price', y= 'Count')
+
+```
+
+\newpage
+Let's uncover further interesting factors - the correlation matrix based on our numeric variables. Since correlation was 1 for HorsePower and Power_Km (they are basically the same, only they are expressed in a different unit of measurement), I dropped the Power_Km variable.
+
+There are three points we can make by looking at Figure 3, all of which are quite intuitive: 
+
+* There is stronger positive correlation between price vs horsepower - people like to speed up fast 
+* There is no correlation whatsoever between displacement vs prices - looks like people don't price in the cylinder volume
+* Strog negative correlation between km vs prices - People percieve cars that already run a lot to be less reliable perhaps
+
+```{r , include = FALSE}
+df$Power_kW <- NULL
+
+corr <- df %>%
+    select(Displacement,Horsepower,Km,PictureCount,Prices)
+```
+```{r , fig.width=8,fig.height=4, fig.cap='Correlation matrix of scraped numeric variables', echo = FALSE , results = "asis", warning = FALSE, message = FALSE }
+corr <- cor(corr, use = "pairwise.complete.obs")
+ggcorrplot(corr, method = "square",lab = TRUE)
+```
