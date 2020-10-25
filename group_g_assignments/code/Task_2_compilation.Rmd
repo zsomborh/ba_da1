@@ -1,6 +1,6 @@
 ---
-title: "Team Assignment - our fast food journey"
-author: "The very best team"
+title: "Team Assignment - Our Fast Food Journey"
+author: "The very best team - Group G"
 date: '2020-10-24'
 output:
   pdf_document: default
@@ -12,7 +12,7 @@ fig_height: 2
 
 ## Introduction
 
-We set out to collect information on 32cm Margherita pizza and 0.5l cola prices from various locations within Hungary by looking at the menus available on one of the biggest Hungarian food delivery sites called NetPincer at <https://www.netpincer.hu/>. In this document we first describe the data collection steps which entailed web-scraping and introduce the main characteristics of our variables. After that, we analyze how strong the connection is between our variables and we will try to see if there is any significant driver when it comes to pricing. Finally we will test whether the average price of the pizza products in our sample has a statistically significant difference when comparing prices in Budapest vs prices in the rest of Hungry. All codes and files used for this analysis are available in our [github repo](https://github.com/zsomborh/ba_da1/tree/master/group_g_assignments).
+We set out to collect information on 32cm Margherita pizza and 0.5l cola prices from various locations within Hungary by looking at the menus available on one of the biggest Hungarian food delivery sites called NetPincer at <https://www.netpincer.hu/>. In this document we first describe the data collection steps which entailed web-scraping and introduce the main characteristics of our variables. After that, we analyze how strong the connection is between our variables and we will try to see if there is any significant driver when it comes to pricing. Finally we will test whether the average price of the pizza products in our sample has a statistically significant difference when comparing prices in Budapest vs prices in the rest of Hungary. All codes and files used for this analysis are available in our [github repo](https://github.com/zsomborh/ba_da1/tree/master/group_g_assignments).
 
 ## Data collection
 
@@ -188,12 +188,14 @@ p2 <- ggplot(pizza_data, aes(y = beverage_price, x = city)) +
 ```{r, echo = FALSE , fig.cap='Box plots of pizza and beverage prices in Budapest and Rest of Hungary', results = "asis", warning = FALSE, message = FALSE }
 ggarrange(p1, p2, nrow = 1,common.legend = TRUE, legend="bottom")
 ```
+
 \newpage
 
 ## Correlation
 
-We wanted to measure the strength and direction of the linear relationships between the various variables in our data table such as price, distance to city center,beverage price, ratings and no of ratings. We drew up a correlation matrix for two locations Budapest and Rest of Hungary which helped us summarize the relationships of the variables against each other in both locations.
-```{r, echo=FALSE, fig.cap='Correlation Matrix (Budapest)', fig.height=4, message=FALSE, warning=FALSE, fig.width=8, results= 'asis'}
+We wanted to measure the strength and direction of the linear relationships between the various variables in our data table such as price, distance to city center,beverage price, ratings and no of ratings. We drew up a correlation matrix for the two locations Budapest and Rest of Hungary which helped us summarize the relationships of the variables against each other in both locations.
+
+```{r, echo=FALSE, fig.cap='Correlation Matrix (Budapest)', fig.height=3.7, message=FALSE, warning=FALSE, fig.width=8, results= 'asis'}
 select_col <- pizza_data %>%
   filter(city == "Budapest") %>%
   select(user_rating,no_ratings,distance_ceu,margherita_pizza_price,beverage_price)
@@ -201,7 +203,8 @@ select_col <- pizza_data %>%
 cor1 <- cor(select_col, use = "pairwise.complete.obs")
 ggcorrplot(cor1, method = "square",lab = TRUE)
 ```
-```{r, fig.width=8,fig.height=4, fig.cap='Correlation Matrix (Rest of Hungary)', echo = FALSE, warning = FALSE, message = FALSE, results = 'asis'}
+
+```{r, fig.width=8,fig.height=3.7, fig.cap='Correlation Matrix (Rest of Hungary)', echo = FALSE, warning = FALSE, message = FALSE, results = 'asis'}
 select_col <- pizza_data %>%
   filter(city != "Budapest") %>%
   select(user_rating,no_ratings,distance_city_center,margherita_pizza_price,beverage_price)
@@ -209,6 +212,7 @@ select_col <- pizza_data %>%
 cor2 <- cor(select_col, use = "pairwise.complete.obs")
 ggcorrplot(cor2, method = "square",lab = TRUE)
 ```
+
 \newpage
 
 ## Margherita pizza price vs distance to city center
@@ -266,4 +270,126 @@ ratings_distance2 <- pizza_data %>%
   labs(x= 'Distance to city center', y = 'User ratings',subtitle = 'Rest of Hungary')
 
 ggarrange(ratings_distance1,ratings_distance2, nrow =1)
+```
+
+## Hypothesis testing
+
+### **Two sample t-test**
+
+Question: Is the average price of marheritha is the same in Budapest vs. Rest of Hungary (other big cities: Debrecen, Szeged, Pécs, Miskolc)
+
+**H0**: *avg. price of pizza in Budapest - avg. price of pizza outside of Budapest == 0*
+
+**H-Alternative**: *avg. price of in Budapest - avg. price outside of Budapest != 0*
+
+We test for equality of average prices. We can reject N0 if p \< 0.05.
+
+We receive the following results:
+
+```{r, echo = FALSE }
+t.test(margherita_pizza_price ~ city, pizza_data)
+```
+
+**Result**: True difference in means is not equal to 0 hence avg. price of pizza in Budapest vs. avg. price of pizza outside of Budapest differs significantly. Hence, we CAN reject the Null hypothesis. The probability of making a false positive error is about 0.013%.
+
+### Summary statistics of Margherita pizza price in Budapest and Rest of Hungary
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+budapest_sum <- pizza_data %>% filter(city == 'Budapest') %>%
+  summarise(
+  variable = 'Budapest',
+  mean     = mean(margherita_pizza_price),
+  median   = median(margherita_pizza_price),
+  std      = sd(margherita_pizza_price),
+  iq_range = IQR(margherita_pizza_price), 
+  min      = min(margherita_pizza_price),
+  max      = max(margherita_pizza_price),
+  skew     = skewness(margherita_pizza_price),
+  numObs   = sum( !is.na( margherita_pizza_price ) ) )
+
+non_budapest_sum <- pizza_data %>% filter(city != 'Budapest') %>%
+  summarise(
+  variable = 'Rest of Hungary',
+  mean     = mean(margherita_pizza_price),
+  median   = median(margherita_pizza_price),
+  std      = sd(margherita_pizza_price),
+  iq_range = IQR(margherita_pizza_price), 
+  min      = min(margherita_pizza_price),
+  max      = max(margherita_pizza_price),
+  skew     = skewness(margherita_pizza_price),
+  numObs   = sum( !is.na( margherita_pizza_price ) ) )
+
+
+marg_pizze_price_summary <- budapest_sum %>% add_row( non_budapest_sum )
+
+xtb <- xtable(marg_pizze_price_summary,type = "latex", caption = "Summary statistics of Margherita pizza price in Budapest and Rest of Hungary")
+```
+
+```{r, echo = FALSE , results = "asis", warning = FALSE, message = FALSE }
+print(xtb, comment=FALSE, include.rownames=FALSE)
+
+```
+
+### Analyzing 32 cm margherita pizza prices + beverage
+
+**Two sample t-test**
+
+**Question**: Is the average price of margheritha is the same in Budapest vs. Rest of Hungary (other big cities: Debrecen, Szeged, Pécs, Miskolc)
+
+**H0**: *avg. price in Budapest - avg. price outside of Budapest == 0*
+
+**H-Alternative**: *avg. price of in Budapest - avg. price outside of Budapest != 0*
+
+We test for equality of average prices. We can reject N0 if p \< 0.05.
+
+We received the following results:
+
+```{r, echo = FALSE}
+t.test(margherita_pizza_price+beverage_price ~ city, pizza_data)
+
+```
+
+**Result**: True difference in means is not equal to 0 hence avg. price of pizza + beverage in Budapest vs. avg. price of pizza + beverage outside of Budapest differs significantly. Hence, we CAN reject the Null hypothesis. The probability of making a false positive error is about 0.0022%.
+
+### Summary statistics of Margherita pizza + beverage price in Budapest and Rest of Hungary
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+budapest_sum <- pizza_data %>% 
+  filter( city == 'Budapest' ) %>% 
+  filter( !is.na( beverage_price ))%>% 
+  summarise(
+  variable = 'Budapest',
+  mean     = mean(margherita_pizza_price+beverage_price),
+  median   = median(margherita_pizza_price+beverage_price),
+  std      = sd(margherita_pizza_price+beverage_price),
+  iq_range = IQR(margherita_pizza_price+beverage_price), 
+  min      = min(margherita_pizza_price+beverage_price),
+  max      = max(margherita_pizza_price+beverage_price),
+  skew     = skewness(margherita_pizza_price+beverage_price),
+  numObs   = sum( !is.na( margherita_pizza_price+beverage_price ) ) )
+
+non_budapest_sum <- pizza_data %>% 
+  filter( city != 'Budapest' ) %>% 
+  filter( !is.na( beverage_price )) %>% 
+  summarise(
+  variable = 'Rest of Hungary',
+  mean     = mean(margherita_pizza_price+beverage_price),
+  median   = median(margherita_pizza_price+beverage_price),
+  std      = sd(margherita_pizza_price+beverage_price),
+  iq_range = IQR(margherita_pizza_price+beverage_price), 
+  min      = min(margherita_pizza_price+beverage_price),
+  max      = max(margherita_pizza_price+beverage_price),
+  skew     = skewness(margherita_pizza_price+beverage_price),
+  numObs   = sum( !is.na( margherita_pizza_price+beverage_price ) ) )
+
+
+marg_pizze_bev_price_summary <- budapest_sum %>% add_row( non_budapest_sum )
+
+xtb <- xtable(marg_pizze_bev_price_summary,type = "latex", caption = "Summary statistics of Margherita pizza + beverage price in Budapest and Rest of Hungary")
+
+```
+
+```{r, echo = FALSE , results = "asis", warning = FALSE, message = FALSE }
+print(xtb, comment=FALSE, include.rownames=FALSE)
+
 ```
