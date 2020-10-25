@@ -1,0 +1,108 @@
+---
+title: "Correlation"
+author: "Fasih Atif"
+date: "10/25/2020"
+output: pdf_document
+---
+
+```{r, include = FALSE}
+library(tidyverse)
+library(moments)
+library(xtable)
+library(ggpubr)
+library(ggcorrplot)
+
+data_in <- "C:/Users/abc/OneDrive/Business_Analytics/DA1-BA/ba_da1/group_g_assignments/data/clean/"
+pizza_data <- read_csv(paste0(data_in,"assignment1_v2_2020-10-24_11_59.csv"))
+
+pizza_data <- pizza_data %>% 
+    mutate(distance_ceu = as.numeric(gsub('[^0-9\\.]','',distance_ceu)),
+           distance_city_center = as.numeric(gsub('[^0-9\\.]','',distance_city_center)))
+
+pizza_data <- pizza_data %>% 
+    mutate(city = factor(city),
+           city = ifelse(city=='Budapest','Budapest','Rest of Hungary'))
+
+
+```
+
+# Correlation
+
+We wanted to measure the strength and direction of the linear relationships between the various variables in our data table such as price, distance to city center,beverage price, ratings and no of ratings. We drew up a correlation matrix for the two locations Budapest and Rest of Hungary which helped us summarize the relationships of the variables against each other in both locations.
+
+```{r, echo=FALSE, fig.cap='Correlation Matrix (Budapest)', fig.height=3.7, message=FALSE, warning=FALSE, fig.width=8, results= 'asis'}
+select_col <- pizza_data %>%
+  filter(city == "Budapest") %>%
+  select(user_rating,no_ratings,distance_ceu,margherita_pizza_price,beverage_price)
+
+cor1 <- cor(select_col, use = "pairwise.complete.obs")
+ggcorrplot(cor1, method = "square",lab = TRUE)
+```
+
+```{r, fig.width=8,fig.height=3.7, fig.cap='Correlation Matrix (Rest of Hungary)', echo = FALSE, warning = FALSE, message = FALSE, results = 'asis'}
+select_col <- pizza_data %>%
+  filter(city != "Budapest") %>%
+  select(user_rating,no_ratings,distance_city_center,margherita_pizza_price,beverage_price)
+
+cor2 <- cor(select_col, use = "pairwise.complete.obs")
+ggcorrplot(cor2, method = "square",lab = TRUE)
+```
+
+\newpage
+
+## Margherita pizza price vs distance to city center
+
+In Budapest,we expected the pizza price to decrease as we moved away from the city center but the correlation of 0.03 shows that there is only a minute positive linear relationship between the two variables.The price difference in regards to distance might as well be characterized as zero. In Rest of Hungary, the price of the pizza decreased a little as we moved away from city center as shown by a negative correlation of 0.08. The scatterplot of the two variables along with a trend line further shows the relationship in the two groups locations.
+
+```{r, fig.width=8,fig.height=3,fig.cap="Scatterplot of pizza price vs distance to city center in Budapest and Rest of Hungary", echo= FALSE, message= FALSE, warning = FALSE}
+price_distance1 <- pizza_data %>%
+  filter(city == 'Budapest') %>%
+ ggplot(aes(x = distance_ceu, y = margherita_pizza_price)) + 
+  geom_point() +
+  geom_smooth(method = "lm") + theme_bw() + 
+  labs(x= 'Distance to CEU', y = 'Margherita pizza price', subtitle = 'Budapest')
+
+price_distance2 <- pizza_data %>%
+  filter(city == 'Rest of Hungary') %>%
+ ggplot(aes(x = distance_city_center, y = margherita_pizza_price)) + 
+  geom_point() +
+  geom_smooth(method = "lm") + theme_bw() + 
+  labs(x= 'Distance to city center', y = 'Margherita pizza price',subtitle = 'Rest of Hungary')
+
+ggarrange(price_distance1,price_distance2, nrow =1)
+```
+
+## Margherita pizza price vs User rating
+
+In Budapest, the correlation of 0.1 shows that there is a very weak positive relationship between user ratings and pizza price in a restaurant. In Rest of Hungary, the correlation is 0.21 which also signifies a weak positive relationship. The rating for restaurants that had higher prices had a better user rating. Its most likely that the quality of ingredients and taste justified the higher price and hence customers gave a slightly higher rating.
+
+```{r, fig.width=8,fig.height=3,fig.cap="Scatterplot of Margherita pizza price vs User rating in Budapest and Rest of Hungary", echo= FALSE, message= FALSE, warning = FALSE}
+pizza_data %>%
+  ggplot(aes(x = margherita_pizza_price, y = user_rating)) + 
+  geom_point() +
+  geom_smooth(method = "lm") + theme_bw() + 
+  labs(x= 'Margherita pizza price', y = 'User Rating') +
+  facet_wrap(~city)
+```
+
+## Distance to city center vs User rating
+
+In Budapest, the restaurants closer to CEU (city center for Budapest) had comparatively higher ratings than the ones further away from CEU as shown by correlation of -0.31. Since many locals and tourists alike visit the city center more to eat, the restaurants aim to provide good quality food to maintain its reputation. Hence, it may be that the customers had a better experience in the city center. The number of observations related to restaurants far from city center are low so the relationship may not be entirely true and needs to be studied further.In Rest of Hungary, there is no noticeable pattern visible between distance to city center and user rating as shown by correlation of 0.03. It signifies a very weak positive correlation.
+
+```{r, fig.width=8,fig.height=3, fig.cap="Scatterplot of Distance to city center vs User rating in Budapest and Rest of Hungary", echo= FALSE, message= FALSE, warning = FALSE}
+ratings_distance1 <- pizza_data %>%
+  filter(city == 'Budapest') %>%
+ ggplot(aes(x = distance_ceu, y = user_rating)) + 
+  geom_point() +
+  geom_smooth(method = "lm") + theme_bw() + 
+  labs(x= 'Distance to CEU', y = 'User ratings', subtitle = 'Budapest')
+
+ratings_distance2 <- pizza_data %>%
+  filter(city == 'Rest of Hungary') %>%
+ ggplot(aes(x = distance_city_center, y = user_rating)) + 
+  geom_point() +
+  geom_smooth(method = "lm") + theme_bw() + 
+  labs(x= 'Distance to city center', y = 'User ratings',subtitle = 'Rest of Hungary')
+
+ggarrange(ratings_distance1,ratings_distance2, nrow =1)
+```
