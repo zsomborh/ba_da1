@@ -57,10 +57,9 @@ library(xtable)
 library(ggpubr)
 library(ggcorrplot)
 
-#setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-#pizza_data <- read_csv('../data/clean/assignment1_v2_2020-10-24_11_59.csv')
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-data_in <- "~/OneDrive/Business_Analytics/DA1-BA/ba_da1/group_g_assignments/data/clean/"
+data_in <- "../data/clean/"
 pizza_data <- read_csv(paste0(data_in,"assignment1_v2_2020-10-24_11_59.csv"))
 
 pizza_data <- pizza_data %>% 
@@ -275,121 +274,36 @@ ggarrange(ratings_distance1,ratings_distance2, nrow =1)
 
 # Hypothesis testing
 
-## **Two sample t-test -** Analyzing 32 cm Margherita pizza prices + beverage
+## **Two sample t-test -** Analyzing 32 cm Margherita pizza prices
 
 **Question**: Is the average price of marheritha is the same in Budapest vs. Rest of Hungary (other big cities: Debrecen, Szeged, Pécs, Miskolc)
 
-**H0**: *avg. price of pizza in Budapest - avg. price of pizza outside of Budapest == 0*
-
+**H0**: *avg. price of pizza in Budapest - avg. price of pizza outside of Budapest == 0* \
 **H-Alternative**: *avg. price of in Budapest - avg. price outside of Budapest != 0*
 
-We test for equality of average prices. We can reject N0 if p \< 0.05.
+We test for equality of average prices. We can reject N0, if p \< 0.05.
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, message = FALSE, warning = FALSE, include = FALSE }
 t.test(margherita_pizza_price ~ city, pizza_data)
 ```
 
 **Result**: t = 4.0079, df = 82.502, p-value = 0.0001337, 95 percent confidence interval: [134.9711; 400.9516].
 The p-value is way smaller than the defined 5%, hence, we CAN reject the Null hypothesis. The probability of making a false positive error is about 0.013%. True difference in means is not equal to 0, hence avg. price of pizza in Budapest vs. avg. price of pizza outside of Budapest differs significantly. 
 
-### Summary Statistics 
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
-budapest_sum <- pizza_data %>% filter(city == 'Budapest') %>%
-  summarise(
-  variable = 'Budapest',
-  mean     = mean(margherita_pizza_price),
-  median   = median(margherita_pizza_price),
-  std      = sd(margherita_pizza_price),
-  iq_range = IQR(margherita_pizza_price), 
-  min      = min(margherita_pizza_price),
-  max      = max(margherita_pizza_price),
-  skew     = skewness(margherita_pizza_price),
-  numObs   = sum( !is.na( margherita_pizza_price ) ) )
-
-non_budapest_sum <- pizza_data %>% filter(city != 'Budapest') %>%
-  summarise(
-  variable = 'Rest of Hungary',
-  mean     = mean(margherita_pizza_price),
-  median   = median(margherita_pizza_price),
-  std      = sd(margherita_pizza_price),
-  iq_range = IQR(margherita_pizza_price), 
-  min      = min(margherita_pizza_price),
-  max      = max(margherita_pizza_price),
-  skew     = skewness(margherita_pizza_price),
-  numObs   = sum( !is.na( margherita_pizza_price ) ) )
-
-
-marg_pizze_price_summary <- budapest_sum %>% add_row( non_budapest_sum )
-
-xtb <- xtable(marg_pizze_price_summary,type = "latex", caption = "Summary statistics of Margherita pizza price in Budapest and Rest of Hungary")
-```
-
-```{r, echo = FALSE , results = "asis", warning = FALSE, message = FALSE }
-print(xtb, comment=FALSE, include.rownames=FALSE)
-
-```
-
 ## **Two sample t-test -** Analyzing 32 cm Margherita pizza prices + beverage prices
 
 **Question**: Is the average price of margherita + beverage is the same in Budapest vs. Rest of Hungary (other big cities: Debrecen, Szeged, Pécs, Miskolc)
 
-**H0**: *avg. price in Budapest - avg. price outside of Budapest == 0*
-
+**H0**: *avg. price in Budapest - avg. price outside of Budapest == 0* \
 **H-Alternative**: *avg. price of in Budapest - avg. price outside of Budapest != 0*
 
-We test for equality of average prices. We can reject N0 if p < 0.05.
+We test for equality of average prices. We can reject N0, if p < 0.05.
 
 
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
+```{r, echo = FALSE, message = FALSE, warning = FALSE, include = FALSE }
 t.test(margherita_pizza_price+beverage_price ~ city, pizza_data)
 
 ```
 
-**Result**: True difference in means is not equal to 0 hence avg. price of pizza + beverage in Budapest vs. avg. price of pizza + beverage outside of Budapest differs significantly. Hence, we CAN reject the Null hypothesis. The probability of making a false positive error is about 0.0022%.
-
 **Result**: t = 5.1558, df = 25.865, p-value = 2.262e-05, 95 percent confidence interval: [326.6731; 760.0412]
 The p-value is way smaller than the defined 5%, hence, we CAN reject the Null hypothesis. The probability of making a false positive error is about 0.0022%. True difference in means is not equal to 0, hence avg. price of pizza + beverage in Budapest vs. avg. price outside of Budapest differs significantly. 
-
-### Summary Statistics
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
-budapest_sum <- pizza_data %>% 
-  filter( city == 'Budapest' ) %>% 
-  filter( !is.na( beverage_price ))%>% 
-  summarise(
-  variable = 'Budapest',
-  mean     = mean(margherita_pizza_price+beverage_price),
-  median   = median(margherita_pizza_price+beverage_price),
-  std      = sd(margherita_pizza_price+beverage_price),
-  iq_range = IQR(margherita_pizza_price+beverage_price), 
-  min      = min(margherita_pizza_price+beverage_price),
-  max      = max(margherita_pizza_price+beverage_price),
-  skew     = skewness(margherita_pizza_price+beverage_price),
-  numObs   = sum( !is.na( margherita_pizza_price+beverage_price ) ) )
-
-non_budapest_sum <- pizza_data %>% 
-  filter( city != 'Budapest' ) %>% 
-  filter( !is.na( beverage_price )) %>% 
-  summarise(
-  variable = 'Rest of Hungary',
-  mean     = mean(margherita_pizza_price+beverage_price),
-  median   = median(margherita_pizza_price+beverage_price),
-  std      = sd(margherita_pizza_price+beverage_price),
-  iq_range = IQR(margherita_pizza_price+beverage_price), 
-  min      = min(margherita_pizza_price+beverage_price),
-  max      = max(margherita_pizza_price+beverage_price),
-  skew     = skewness(margherita_pizza_price+beverage_price),
-  numObs   = sum( !is.na( margherita_pizza_price+beverage_price ) ) )
-
-
-marg_pizze_bev_price_summary <- budapest_sum %>% add_row( non_budapest_sum )
-
-xtb <- xtable(marg_pizze_bev_price_summary,type = "latex", caption = "Summary statistics of Margherita pizza + beverage price in Budapest and Rest of Hungary")
-
-```
-
-```{r, echo = FALSE , results = "asis", warning = FALSE, message = FALSE }
-print(xtb, comment=FALSE, include.rownames=FALSE)
-
-```
