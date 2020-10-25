@@ -285,13 +285,12 @@ ggarrange(ratings_distance1,ratings_distance2, nrow =1)
 
 We test for equality of average prices. We can reject N0 if p \< 0.05.
 
-We receive the following results:
-
-```{r, echo = FALSE }
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
 t.test(margherita_pizza_price ~ city, pizza_data)
 ```
 
-**Result**: True difference in means is not equal to 0 hence avg. price of pizza in Budapest vs. avg. price of pizza outside of Budapest differs significantly. Hence, we CAN reject the Null hypothesis. The probability of making a false positive error is about 0.013%.
+**Result**: t = 4.0079, df = 82.502, p-value = 0.0001337, 95 percent confidence interval: [134.9711; 400.9516].
+The p-value is way smaller than the defined 5%, hence, we CAN reject the Null hypothesis. The probability of making a false positive error is about 0.013%. True difference in means is not equal to 0, hence avg. price of pizza in Budapest vs. avg. price of pizza outside of Budapest differs significantly. 
 
 ### Summary Statistics 
 
@@ -331,9 +330,9 @@ print(xtb, comment=FALSE, include.rownames=FALSE)
 
 ```
 
-## **Two sample t-test -** Analyzing 32 cm Margherita pizza prices + beverage
+## **Two sample t-test -** Analyzing 32 cm Margherita pizza prices + beverage prices
 
-**Question**: Is the average price of margheritha is the same in Budapest vs. Rest of Hungary (other big cities: Debrecen, Szeged, Pécs, Miskolc)
+**Question**: Is the average price of margherita + beverage is the same in Budapest vs. Rest of Hungary (other big cities: Debrecen, Szeged, Pécs, Miskolc)
 
 **H0**: *avg. price in Budapest - avg. price outside of Budapest == 0*
 
@@ -341,14 +340,16 @@ print(xtb, comment=FALSE, include.rownames=FALSE)
 
 We test for equality of average prices. We can reject N0 if p < 0.05.
 
-We receive the following results:
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
 t.test(margherita_pizza_price+beverage_price ~ city, pizza_data)
 
 ```
 
 **Result**: True difference in means is not equal to 0 hence avg. price of pizza + beverage in Budapest vs. avg. price of pizza + beverage outside of Budapest differs significantly. Hence, we CAN reject the Null hypothesis. The probability of making a false positive error is about 0.0022%.
+
+**Result**: t = 5.1558, df = 25.865, p-value = 2.262e-05, 95 percent confidence interval: [326.6731; 760.0412]
+The p-value is way smaller than the defined 5%, hence, we CAN reject the Null hypothesis. The probability of making a false positive error is about 0.0022%. True difference in means is not equal to 0, hence avg. price of pizza + beverage in Budapest vs. avg. price outside of Budapest differs significantly. 
 
 ### Summary Statistics
 
